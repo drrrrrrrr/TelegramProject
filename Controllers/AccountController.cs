@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using telegramBod.Models;
+using telegramBod.Providers;
 
 namespace telegramBod.Controllers
 {
@@ -25,6 +26,14 @@ namespace telegramBod.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                CustomRoleProvider l = new CustomRoleProvider();
+                bool con = l.IsUserInRole(User.Identity.Name, "User");
+                if (con)
+                    return RedirectToAction("Index", "Admin");
+                else return RedirectToAction("Andex", "Admin"); 
+            }
             if (ModelState.IsValid)
             {
                 // поиск пользователя в бд
@@ -37,7 +46,15 @@ namespace telegramBod.Controllers
                 if (user != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.Name, true);
-                    return RedirectToAction("Index", "Home");
+                    
+                    if(user.Roles.Names=="User")
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Andex", "Admin");
+                    }
                 }
                 else
                 {

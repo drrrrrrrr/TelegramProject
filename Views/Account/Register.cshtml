@@ -1,54 +1,83 @@
-﻿
-@model telegramBod.Models.RegisterModel
+﻿@model telegramBod.Models.RegisterModel
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CreateBotShop</title>
+    <link href="~/Css/application.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    <script src="~/Library/jquery/jquery-2.0.3.min.js"></script>
+    <script src="~/Library/jquery/jquery.pjax.js"></script>
+    <script src="~/Library/backbone/underscore-min.js"></script>
+    <script src="js/settings.js"></script>
+</head>
+<body>
+    <div class="single-widget-container">
+        <section class="widget login-widget">
+            <header class="text-align-center">
+                <h4>Регистрация</h4>
+            </header>
+            <div class="body">
+                @using (Html.BeginForm("Register", "Account"))
+    {
+            @Html.AntiForgeryToken()
+            <fieldset>
+                <div class="form-group no-margin">
+                    <label for="email">Логин</label>
 
-@{
-    ViewBag.Title = "Регистрация";
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                            <i class="eicon-user"></i>
+                        </span>
+                        <input id="email" type="email" name="Name" class="form-control input-lg"
+                               placeholder="Your Email">
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                        @*@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <input id="password" type="password" name="Password" class="form-control input-lg"
+                               placeholder="Your Password">
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="passwords">Подтверждение пароля</label>
+
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                        @*@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <input id="passwords" type="password" name="ConfirmPassword" class="form-control input-lg"
+                               placeholder="Your Password">
+                    </div>
+
+                </div>
+            </fieldset>
+            <div class="form-actions">
+                <input type="submit" class="btn btn-block btn-lg btn-danger" />
+
+                <div class="forgot"><a class="forgot" href="~/Account/Login">Вы зарегистрированы?</a></div>
+                <div class="forgot"><a class="forgot" href="~/Home/Index">Вернуться в главное меню</a></div>
+            
+            </div>
+            
+
+
 }
-
-<h2>Регистрация</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password)
-                @Html.ValidationMessageFor(model => model.Password)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ConfirmPassword)
-                @Html.ValidationMessageFor(model => model.ConfirmPassword)
-            </div>
-        </div>
-
-     
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Зарегистрировать" class="btn btn-default" />
-            </div>
-        </div>
+        </section>
     </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</body>
+</html>
