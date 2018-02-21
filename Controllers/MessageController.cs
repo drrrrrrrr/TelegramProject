@@ -3,9 +3,12 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
 using telegramBod.Models;
@@ -16,22 +19,22 @@ namespace telegramBod.Controllers
     {
        
         [Route(@"api/message/update/{id}")] //webhook uri part
-        public OkResult Update([FromBody]Update update, int? id)
+        public  OkResult Update([FromBody]Update update, int? id)
         {
-        //    SendMessage(update.message.chat.id, "asdasd", ReceiveToken(update, id));
-            if (id != null)
-            {
-                if (update.message != null)
-                {
-                    SendAnswer(update, update.message.chat.id, Text(update), id);
-                    return Ok();
-                }
-                if (update.callback_query != null)
-                {
-                    AnswerIsQuery(update, id);
-                    return Ok();
-                }
-            }
+           SendPhotoIputFile(update, id, @"~/Images/01.jpg");
+            //if (id != null)
+            //{
+            //    if (update.message != null)
+            //    {
+            //        SendAnswer(update, update.message.chat.id, Text(update), id);
+            //        return Ok();
+            //    }
+            //    if (update.callback_query != null)
+            //    {
+            //        AnswerIsQuery(update, id);
+            //        return Ok();
+            //    }
+            //}
             return Ok();
         }
         string Text(Update up)
@@ -136,20 +139,29 @@ namespace telegramBod.Controllers
 
             }
 
-            answer = "В корзине" + rec.Count + "  шт";
-            InlineKeyboard keyboard = new InlineKeyboard();
-            keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
-            AddMainButtons(keyboard);
-            reply_markup = JsonConvert.SerializeObject(keyboard);
+           // answer = "В корзине" + rec.Count + "  шт";
+            //InlineKeyboard keyboard = new InlineKeyboard();
+            //keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
+            //AddMainButtons(keyboard);
+            //reply_markup = JsonConvert.SerializeObject(keyboard);
+            Shop(_data[2], _data[3], update, id, out reply_markup);
             return answer;
         }
-        void AddRecycle(InlineKeyboard keyboard, string nameCategory, string nameProduct)
+        void AddRecycle(InlineKeyboard keyboard, string nameCategory, string nameProduct, Update update, int? id)
         {
+            TelegramRecycle tel = new TelegramRecycle(update, id);
+            if (tel.Count == null)
+                return;
             List<InlineKeyboardButton> line = new List<InlineKeyboardButton>()
             {
-                new InlineKeyboardButton("Корзина", "корзина" ),
-                new InlineKeyboardButton("Добавить в корзину", "корзина покупка "+nameCategory+" "+nameProduct )
+                new InlineKeyboardButton("Корзина "+tel.Count, "корзина" ),
             };
+            if (nameProduct == "" || nameCategory=="")
+            {
+                keyboard.AddLine(line);
+                return;
+            }
+            line.Add(new InlineKeyboardButton("Добавить в корзину", "корзина покупка " + nameCategory + " " + nameProduct));            
             keyboard.AddLine(line);
         }
         void AddMainButtons(InlineKeyboard keyboard)
@@ -180,24 +192,9 @@ namespace telegramBod.Controllers
                 }
                 catch
                 {
-                    //   SendMessage(update.callback_query.from.id, "БД УПало", ReceiveToken(update, id));
+                   //   SendMessage(update.callback_query.from.id, "БД УПало", ReceiveToken(update, id));
                 }
             }
-
-            //try
-            //{
-            //    SendMessage(update.callback_query.from.id, p.Count.ToString(), ReceiveToken(update, id));
-            //}
-            //catch
-            //{
-            //    SendMessage(update.callback_query.from.id, "равно 0", ReceiveToken(update, id));
-            //}
-            //list = cat.Where(x => x.NameCategory == category).First();
-            //if (list == null)
-            //{
-            //    SendMessage(update.callback_query.from.id, "null", ReceiveToken(update, id));
-            //}
-            //else SendMessage(update.callback_query.from.id, list.Product.Count.ToString(), ReceiveToken(update, id));
             InlineKeyboard keyboard = new InlineKeyboard();
             int i = 0;
             foreach (Product k in p)
@@ -208,7 +205,7 @@ namespace telegramBod.Controllers
 
                   k.ProductName, k.Category.NameCategory + " " + k.ProductName), i++ / 2);
             }
-            AddRecycle(keyboard, category, nameProduct);
+            AddRecycle(keyboard, category, nameProduct,update,id);
             Product chooseProduct = p.Where(x => x.ProductName == nameProduct).First();
             answer += chooseProduct.ProductPrice + Environment.NewLine + "  " + " " + chooseProduct.ProductDescription;
             keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
@@ -224,7 +221,7 @@ namespace telegramBod.Controllers
             using (botEntities bd = new botEntities())
             {
                 list = bd.Category.Where(x => x.Token.Id == id).ToList();
-                token = bd.Token.Where(x => x.Id == id).First().token1;
+                token = ReceiveToken(update, id);
             }
             InlineKeyboard keyboard = new InlineKeyboard();
             foreach (Category k in list)
@@ -233,30 +230,45 @@ namespace telegramBod.Controllers
                     k.NameCategory
                     ), i++ / 2);
             }
+           // AddRecycle(keyboard,"","",update, id);
             AddMainButtons(keyboard);
+            
             reply_markup = JsonConvert.SerializeObject(keyboard);
             return "Все категории";
         }
+        async public Task SendPhotoIputFile(Update update, int? id,string pathToPhoto, string catprion = "")
+        {
+            string BaseUrl = "https://api.telegram.org/bot";
+            using (MultipartFormDataContent form = new MultipartFormDataContent())
+            {
+                string url = BaseUrl + ReceiveToken(update,id) + "/sendPhoto";
+                string fileName = pathToPhoto.Split('\\').Last();
+
+                form.Add(new StringContent(update.message.from.id.ToString(), Encoding.UTF8), "chat_id");
+                form.Add(new StringContent(catprion.ToString(), Encoding.UTF8), "caption");
+                using (FileStream fileStream = new FileStream(pathToPhoto, FileMode.Open, FileAccess.Read))
+                {
+                    form.Add(new StreamContent(fileStream), "photo", fileName);
+                    using (HttpClient client = new HttpClient())
+                        await client.PostAsync(url, form);
+                }
+            }
+
+        }
     }
 
-
-
     class TelegramRecycle
-    {
-
+    { 
         string username;
         int TokenIds;
         public int? Count { get; private set; }
-        List<Recycle> rec;
-
         public TelegramRecycle(Update update, int? id)
         {
             this.username = update.callback_query.from.id.ToString();
             TokenIds = (int)id;
             using (botEntities bd = new botEntities())
             {
-                rec = bd.Recycle.Where(x => x.UserName == username).Where(x => x.Id == id).ToList();
-                Count = rec.Count;
+                Count = bd.Recycle.Where(x => x.UserName == username).Where(x => x.TokenId == TokenIds).ToList().Count;
             }
         }
         public void AddBuy(string NameCategorys, string NameProducts)
@@ -271,64 +283,8 @@ namespace telegramBod.Controllers
                     UserName = username
                 });
                 bd.SaveChanges();
-
             }
         }
-
     }
-
-
-
-    //    string Shop(string shop, out string reply_markup)
-    //    {
-    //        string answer = "Магазин продуктов";
-    //        reply_markup = "";
-    //        Category categories;
-    //        char[] spl = { ' ' };
-    //        string[] shops = shop.Split(spl, StringSplitOptions.RemoveEmptyEntries);
-    //        string ncat = shops[0];
-    //        string nproduct = "q";
-    //        if (shops.Length > 1)
-    //            nproduct = shops[1];
-    //        Product pr = new Product();
-    //        List<InlineKeyboardButton> kb = new List<InlineKeyboardButton>();
-    //        using (UpdateDbContext db = new UpdateDbContext())
-    //        {
-    //            if (shops.Length == 1)
-    //            {
-    //                var product = db.Products.ToList();
-    //                categories = db.Categorys.Where(x => x.NameCategory == ncat).First();
-    //            }
-    //            else
-    //            {
-    //                var product = db.Products.ToList();
-    //                //categories = db.Categorys.Where(x => x.NameCategory == ncat).First();
-    //                categories = db.Categorys.Where(x => x.NameCategory == ncat).First();
-    //                pr = categories.Products.Where(x => x.NameProduct == nproduct).First();
-    //            }
-    //        }
-    //        InlineKeyboard keyboard = new InlineKeyboard();
-    //        int i = 0;
-    //        if (shops.Length == 1)
-    //        {
-    //            foreach (var item in categories.Products)
-    //            {
-    //                keyboard.AddButton(new InlineKeyboardButton(item.NameProduct, item.Category.NameCategory + " " + item.NameProduct), i++ / 2);
-    //            }
-    //        }
-    //        if (shops.Length > 1)
-    //        {
-    //            foreach (var item in categories.Products)
-    //            {
-    //                keyboard.AddButton(new InlineKeyboardButton(item.NameProduct, item.Category.NameCategory + " " + item.NameProduct), i++ / 2);
-    //            }
-    //            answer = pr.NameProduct + "    " + pr.Price + "   " + pr.Description;
-    //        }
-    //        AddMainButton(keyboard);
-    //        reply_markup = JsonConvert.SerializeObject(keyboard);
-
-
-    //        return answer;
-    //    }
 }
 
