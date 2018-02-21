@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Template Title -->
-    <title>CreateBotShop</title>
+    <title>Blue App</title>
 
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="~/Images/favicon.ico" type="image/x-icon" />
 
     <!-- Bootstrap 3.2.0 stylesheet -->
     <link href="~/Css/cssForHome/bootstrap.min.css" rel="stylesheet">
@@ -48,17 +48,19 @@
 
                         <div class="col-sm-7 col-md-7">
                             <div class="content">
-                                <h1><strong>BotShop</strong> by INDO</h1>
+                                <h1><strong>CreateBotShop</strong> by INDO</h1>
                                 <h2>Откройте свой магазин в Telegram всего за несколько минут</h2>
                                 <div class="button" id="download-app1">
-                                    @Html.ActionLink("Попробовать", "Login", "Account", null, new { @class = "btn btn-default btn-lg custom-btn" })
+                                    <a href="/Account/Login" class="btn btn-default btn-lg custom-btn">Создать магазин</a>
                                 </div> <!-- end .button -->
                             </div> <!-- end .content -->
                         </div> <!-- end .top > .container> .row> .col-md-7 -->
 
                         <div class="col-sm-5 col-md-5">
                             <div class="photo-slide">
-                                <div id="carousel" class="carousel slide" data-ride="carousel">
+                                <div class="item">
+                                    <img src="images/phone.png" alt="">
+                                    <!--<div id="carousel" class="carousel slide" data-ride="carousel">
                                     <ol class="carousel-indicators">
                                         <li data-target="#carousel" data-slide-to="0" class="active"></li>
                                         <li data-target="#carousel" data-slide-to="1" class=""></li>
@@ -66,13 +68,13 @@
                                     </ol>
                                     <div class="carousel-inner">
                                         <div class="item">
-                                            <img src="~/Images/phone.png" alt="">
+                                            <img src="images/phone.png" alt="">
                                         </div>
                                         <div class="item active left">
-                                            <img src="~/Images/phone.png" alt="">
+                                            <img src="images/phone.png" alt="">
                                         </div>
                                         <div class="item next left">
-                                            <img src="~/Images/phone.png" alt="">
+                                            <img src="images/phone.png" alt="">
                                         </div>
                                     </div> <!-- end .carousel-inner -->
                                 </div> <!-- end #carousel -->
@@ -105,11 +107,9 @@
                         <ul id="ulnav" class="nav navbar-nav navbar-right">
                             <li class="active"><a href="#top">Главная</a></li>
                             <li><a href="#features">Возможности</a></li>
-                            <li><a href="#screenshots">Скриншоты</a></li>
                             <li><a href="#description">Описание</a></li>
-                            <li><a href="#testimonial">Отзывы</a></li>
-                            <li><a href="#team">Команда</a></li>
                             <li><a href="#price">Оплата</a></li>
+                            <li><a href="#team">Команда</a></li>
                             <li><a href="#contact">Контакты</a></li>
                         </ul>
                     </div><!-- end .navbar-collapse -->
@@ -126,16 +126,17 @@
 
                 <div class="header">
                     <h1>Наши возможности</h1>
-                    <p>Вместе с релизом нашего сервиса будет доступно многое!</p>
-                    <div class="underline">
+                    <p>Создавая свой telegram-магазин, у Вас появиться возможность быстро принимать и обрабатывать заказы, отслеживать статистику покупок и беспрепятственно редактировать набор товаров.</p>
+                    <!--<div class="underline">
                         <i class="fa fa-briefcase"></i>
                     </div>
+                        -->
                 </div> <!-- end .container> .header -->
 
                 <div class="row">
                     <div class="col-md-4">
                         <div class="featured-item-img">
-                            <img src="~/Images/phone.png" alt="">
+                            <img src="images/phone.png" alt="">
                         </div>
                     </div>
                     <div class="col-md-8 feature-list">
@@ -171,8 +172,8 @@
                                         <div class="icon-style"><i class="fa fa-gears"></i></div>
                                     </div> <!-- end icon -->
                                     <div class="meta-text">
-                                        <h3>Оплата</h3>
-                                        <p>Оплата картами и электронной валютой внутри чат-бота</p>
+                                        <h3>Справочные кнопки</h3>
+                                        <p>Добавление информационных кнопок через сайт</p>
                                     </div> <!-- end .meta-text -->
                                 </div> <!-- end .featured-item -->
                             </div> <!-- end .feature-list> .row > .col-md-6 (3rd item) -->
@@ -222,166 +223,99 @@
     </section>
     <!-- ====== End Features Section ====== -->
     <!-- ====== Screenshots Section ====== -->
-    <section id="screenshots">
+    <!--     <section id="screenshots">
         <div class="screenshots section-padding dark-bg">
-            <div class="container">
+          <div class="container">
 
-                <div class="header">
-                    <h1>App Screenshots</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis nesciunt eos, ipsum id, architecto velit sequi fuga minima commodi, porro vitae officiis, voluptatibus minus voluptates ab. Dolore, dolor repellat quasi.</p>
-                    <div class="underline"><i class="fa fa-image"></i></div>
-                </div>
+         <!--    <div class="header">
+              <h1>App Screenshots</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis nesciunt eos, ipsum id, architecto velit sequi fuga minima commodi, porro vitae officiis, voluptatibus minus voluptates ab. Dolore, dolor repellat quasi.</p>
+              <div class="underline"><i class="fa fa-image"></i></div>
+            </div> -->
+    <!--      <div class="owl-carousel owl-theme">
+         <div class="item">
+           <a href="images/app.jpg" data-rel="prettyPhoto"><img src="images/app.jpg" alt="item photo"></a>
+         </div> <!-- end item -->
+    <!-- <!-- <!-- <!--      <div class="item">
+         <a href="images/app2.jpg" data-rel="prettyPhoto"><img src="images/app2.jpg" alt="item photo"></a>
+       </div> <!-- end item -->
+    <!--   <div class="item">
+                 <a href="images/app.jpg" data-rel="prettyPhoto"><img src="images/app.jpg" alt="item photo"></a>
+               </div> end item
+               <div class="item">
+                 <a href="images/app2.jpg" data-rel="prettyPhoto"><img src="images/app2.jpg" alt="item photo"></a>
 
-                <div class="owl-carousel owl-theme">
-                    <div class="item">
-                        <a href="~/Images/app.jpg" data-rel="prettyPhoto"><img src="~/Images/app.jpg" alt="item photo"></a>
-                    </div> <!-- end item -->
-                    <div class="item">
-                        <a href="~/Images/app2.jpg" data-rel="prettyPhoto"><img src="~/Images/app2.jpg" alt="item photo"></a>
-                    </div> <!-- end item -->
-                    <div class="item">
-                        <a href="~/Images/app.jpg" data-rel="prettyPhoto"><img src="~/Images/app.jpg" alt="item photo"></a>
-                    </div> <!-- end item -->
-                    <div class="item">
-                        <a href="~/Images/app2.jpg" data-rel="prettyPhoto"><img src="~/Images/app2.jpg" alt="item photo"></a>
-                    </div> <!-- end item -->
-                    <div class="item">
-                        <a href="~/Images/app.jpg" data-rel="prettyPhoto"><img src="~/Images/app.jpg" alt="item photo"></a>
-                    </div> <!-- end item -->
-                    <div class="item">
-                        <a href="~/Images/app2.jpg" data-rel="prettyPhoto"><img src="~/Images/app2.jpg" alt="item photo"></a>
-                    </div> <!-- end item -->
-                </div> <!-- end owl carousel -->
-
-            </div> <!-- .container -->
-        </div> <!-- end .screenshots -->
-    </section>
+    -->
+    <!-- end .screenshots -->
+    <!-- </section> -->
     <!-- ====== End Screenshots Section ====== -->
     <!-- ====== Description Section ====== -->
     <section id="description">
-        <div class="description">
-            <div class="description-one section-padding">
-                <div class="container">
-                    <div class="row">
+        <div class="description dark-bg">
+            <!--         <div class="description-one section-padding">
+                    <div class="container">
+                      <div class="row">
                         <div class="col-sm-5 col-md-6">
-                            <div class="app-image">
-                                <img src="~/Images/duel-phone-big1.png" alt="">
-                            </div>
+                          <div class="app-image">
+                            <img src="images/duel-phone-big1.png" alt="">
+                          </div>
                         </div>
                         <div class="col-sm-7 col-md-6">
-                            <div class="content">
-                                <h1>Актуальность</h1>
-                                <h4>Хотите свой магазин?</h4>
-                                <p>
-                                    Чтобы убедиться в актуальности данной проблемы, мы решили собрать статистические данные поиска ключевых слов в самом популярном поисковике России - Яндекс. Статистика показывает, что более 45 тысяч человек делает подобные запросы в месяц. Тем самым мы сделали вывод, что это действительно является проблемой для определенного круга людей.
-                                    <br>
-                                    <br>
-                                    Для решения данной задачи, мы решили создать веб-приложение для создания телеграмм ботов с функциональностью магазина. Другими словами, доступный инструмент для запуска чат-магазина, где даже небольшой бизнес сможет запустить бота за один день и принимать через него заказы.
-                                </p>
-                                <div class="button" id="download-app2">
-                                    <a href="#download" class="btn btn-default btn-lg custom-btn get-btn"><i class="fa fa-cloud-download"></i>Перейти</a>
-                                </div>
+                          <div class="content">
+                            <h1>Актуальность</h1>
+                            <h4>Хотите свой магазин?</h4>
+                            <p>Чтобы убедиться в актуальности данной проблемы, мы решили собрать статистические данные поиска ключевых слов в самом популярном поисковике России - Яндекс. Статистика показывает, что более 45 тысяч человек делает подобные запросы в месяц. Тем самым мы сделали вывод, что это действительно является проблемой для определенного круга людей.
+                            <br>
+                            <br>
+                            Для решения данной задачи, мы решили создать веб-приложение для создания телеграмм ботов с функциональностью магазина. Другими словами, доступный инструмент для запуска чат-магазина, где даже небольшой бизнес сможет запустить бота за один день и принимать через него заказы.
+                            </p>
+                            <div class="button" id="download-app2">
+                              <a href="#download" class="btn btn-default btn-lg custom-btn get-btn"><i class="fa fa-cloud-download"></i>Перейти</a>
                             </div>
+                          </div>
                         </div>
-                    </div> <!-- .container> .row -->
-                </div> <!-- .container -->
-            </div> <!-- end .description-one -->
+                      </div> <!-- .container> .row -->
+        </div> <!-- .container -->
+        <!-- </div>  -->
 
-            <div class="description-two section-padding dark-bg">
-                <div class="container">
-                    <div class="row">
+        <div class="description-two section-padding dark-bg ">
+            <div class="container">
+                <div class="row">
 
-                        <div class="col-sm-7 col-md-6">
-                            <div class="content">
-                                <h1>Как все происходит</h1>
-                                <p>Вот небольшая примерная инструкция (может быть изменено к релизу сервиса):</p>
-                                <ul class="list-item">
-                                    <li><i class="fa fa-table"></i>пройдя на CreateBotShop вы нажимаете на кнопку "создать магазин"</li>
-                                    <li><i class="fa fa-video-camera"></i>если мы не зарегистрированы, то регистрируемся на сайте и вам предоставляется полная инструкция по получению токена для своего телеграмм магазина.</li>
-                                    <li><i class="fa fa-volume-up"></i>заходите на канал botfather</li>
-                                    <li><i class="fa fa-umbrella"></i>...</li>
-                                    <li><i class="fa fa-thumbs-o-up"></i>далее мы переходим на наш сайт, жмем кнопку создать магазин и вставляем токен бота</li>
-                                </ul>
-                            </div> <!-- end .content -->
-                        </div> <!-- .container> .row> .col-md-6 -->
+                    <div class="col-sm-7 col-md-6">
+                        <div class="content">
+                            <h1>Как все происходит</h1>
+                            <p>Краткая и простая инструкция, ведь все легко и просто!</p>
+                            <ul class="list-item">
+                                <li><i class="fa fa-desktop"></i> Нажимаем на кнопку "Создать магазин"</li>
+                                <li><i class="fa fa-gears"></i> Регистрируемся и получаем токен бота</li>
+                                <li><i class="fa fa-file"></i> Загружаем таблицу</li>
+                                <li><i class="fa fa-check"></i> Радуемся полученному магазину!</li>
+                            </ul>
+                        </div> <!-- end .content -->
+                    </div> <!-- .container> .row> .col-md-6 -->
 
-                        <div class="col-sm-5 col-md-6">
-                            <div class="app-image">
-                                <img class="img-responsive" src="~/Images/duel-phone-big.png" alt="">
-                            </div> <!-- end .app-image -->
-                        </div> <!-- .container> .row> .col-md-6 -->
+                    <div class="col-sm-7 col-md-6">
+                        <div class="app-image">
+                            <img class="img-responsive" src="images/its_easy.jpg" alt="">
+                        </div> <!-- end .app-image -->
+                    </div> <!-- .container> .row> .col-md-6 -->
 
-                    </div> <!-- .container> .row -->
-                </div> <!-- .container -->
-            </div> <!-- end .description-two -->
-
+                </div> <!-- .container> .row -->
+            </div> <!-- .container -->
+        </div> <!-- end .description-two -->
         </div> <!-- end .description -->
     </section>
     <!-- ====== End Description Section ====== -->
-    <!-- ====== Testimonial Section ====== -->
-    <section id="testimonial">
-        <div class="bg-color bg-testimonial">
-            <div class="testimonial section-padding">
-                <div class="container">
-                    <div class="testimonial-slide">
-                        <div id="carousel-testimonial" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-testimonial" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-testimonial" data-slide-to="1" class=""></li>
-                                <li data-target="#carousel-testimonial" data-slide-to="2" class=""></li>
-                            </ol>
-                            <div class="carousel-inner">
-
-                                <div class="item">
-                                    <div class="image">
-                                        <img src="images/01.jpg" alt="">
-                                    </div> <!-- end .image -->
-                                    <div class="content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut dignissimos ipsam obcaecati corrupti modi, deserunt facere asperiores. Voluptatum laudantium ut, minus nam. Libero facilis aspernatur cumque, quisquam quod sint odit.</p>
-                                        <h4>Jon Doe</h4>
-                                        <h5>Web developer</h5>
-                                    </div> <!-- end .content -->
-                                </div> <!-- end .item (1) -->
-
-                                <div class="item active left">
-                                    <div class="image">
-                                        <img src="~/Images/02.jpg" alt="">
-                                    </div> <!-- end .image -->
-                                    <div class="content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut dignissimos ipsam obcaecati corrupti modi, deserunt facere asperiores. Voluptatum laudantium ut, minus nam. Libero facilis aspernatur cumque, quisquam quod sint odit.</p>
-                                        <h4>Jon Doe</h4>
-                                        <h5>Web developer</h5>
-                                    </div> <!-- end .content -->
-                                </div> <!-- end .item (2) -->
-
-                                <div class="item next left">
-                                    <div class="image">
-                                        <img src="~/Images/03.jpg" alt="">
-                                    </div> <!-- end .image -->
-                                    <div class="content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut dignissimos ipsam obcaecati corrupti modi, deserunt facere asperiores. Voluptatum laudantium ut, minus nam. Libero facilis aspernatur cumque, quisquam quod sint odit.</p>
-                                        <h4>Jon Doe</h4>
-                                        <h5>Web developer</h5>
-                                    </div> <!-- end .content -->
-                                </div> <!-- end .item (3) -->
-
-                            </div> <!-- end .carousel-inner -->
-                        </div> <!-- end #carousel-testimonial -->
-                    </div> <!-- end .testimonial-slide -->
-                </div> <!-- end .container -->
-            </div> <!-- end .testimonial -->
-        </div> <!-- end .bg-testimonial -->
-    </section>
-    <!-- ====== End Testimonial Section ====== -->
     <!-- ====== Team Section ====== -->
     <section id="team">
         <div class="team section-padding">
             <div class="container">
 
                 <div class="header">
-                    <h1>Who develop the App</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui hic laboriosam odio doloribus suscipit error nostrum totam dignissimos esse numquam voluptatum, aspernatur est.</p>
-                    <div class="underline"><i class="fa fa-users"></i></div>
+                    <h1>Наша команда</h1>
+                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui hic laboriosam odio doloribus suscipit error nostrum totam dignissimos esse numquam voluptatum, aspernatur est.</p>
+                    <div class="underline"><i class="fa fa-users"></i></div> -->
                 </div> <!-- end .container> .header -->
 
                 <div class="row">
@@ -389,85 +323,85 @@
 
                         <div class="col-sm-6 col-md-6 col-lg-3 info">
                             <div class="member">
-                                <img src="~/Images/01.jpg" alt="">
+                                <img src="images/01.jpg" alt="">
                                 <div class="details">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo veniam molestias saepe ipsa autem, odio.</p>
+                                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo veniam molestias saepe ipsa autem, odio.</p>
                                     <div class="social icon">
-                                        <ul>
-                                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                        </ul>
-                                    </div> <!-- end .icon -->
+                                                      <ul>
+                                                          <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                                                          <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                                                          <li><a href=""><i class="fa fa-linkedin"></i></a></li>
+                                                          <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                                      </ul>
+                                                  </div> <!-- end .icon -->
                                 </div> <!-- end .details -->
                             </div> <!-- end .member -->
                             <div class="title">
-                                <h4>Margery Key</h4>
-                                <h5>Lead Developer</h5>
+                                <h4>Дмирий Рудой</h4>
+                                <h5>Team leader</h5>
                             </div> <!-- end .title -->
                         </div> <!-- end .info (1) -->
 
                         <div class="col-sm-6 col-md-6 col-lg-3 info">
                             <div class="member">
-                                <img src="~/Images/02.jpg" alt="">
+                                <img src="images/02.jpg" alt="">
                                 <div class="details">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo veniam molestias saepe ipsa autem, odio.</p>
+                                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo veniam molestias saepe ipsa autem, odio.</p>
                                     <div class="social icon">
-                                        <ul>
-                                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                        </ul>
+                                      <ul>
+                                        <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href=""><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                      </ul>
                                     </div> <!-- end .icon -->
                                 </div> <!-- end .details -->
                             </div> <!-- end .member -->
                             <div class="title">
-                                <h4>Shirley Bergeron</h4>
-                                <h5>UI/UX Designer</h5>
+                                <h4>Олег Тойгильдин</h4>
+                                <h5>Back End Developer</h5>
                             </div> <!-- end .title -->
                         </div> <!-- end .info (2) -->
 
                         <div class="col-sm-6 col-md-6 col-lg-3 info">
                             <div class="member">
-                                <img src="~/Images/03.jpg" alt="">
+                                <img src="images/03.jpg" alt="">
                                 <div class="details">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo veniam molestias saepe ipsa autem, odio.</p>
+                                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo veniam molestias saepe ipsa autem, odio.</p>
                                     <div class="social icon">
-                                        <ul>
-                                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                        </ul>
+                                      <ul>
+                                        <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href=""><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                      </ul>
                                     </div> <!-- end .icon -->
                                 </div> <!-- end .details -->
                             </div> <!-- end .member -->
                             <div class="title">
-                                <h4>Ryan Elder</h4>
+                                <h4>Полина Томм</h4>
                                 <h5>Front End Developer</h5>
                             </div> <!-- end .title -->
                         </div> <!-- end .info (3) -->
 
                         <div class="col-sm-6 col-md-6 col-lg-3 info">
                             <div class="member">
-                                <img src="~/Images/04.jpg" alt="">
+                                <img src="images/04.jpg" alt="">
                                 <div class="details">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo veniam molestias saepe ipsa autem, odio.</p>
+                                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo veniam molestias saepe ipsa autem, odio.</p>
                                     <div class="social icon">
-                                        <ul>
-                                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                                        </ul>
+                                      <ul>
+                                        <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href=""><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                                      </ul>
                                     </div> <!-- end .icon -->
                                 </div> <!-- end .details -->
                             </div> <!-- end .member -->
                             <div class="title">
-                                <h4>Daisy Baker</h4>
-                                <h5>Marketer</h5>
+                                <h4>Олег Самойлов</h4>
+                                <h5>Designer</h5>
                             </div> <!-- end .title -->
                         </div> <!-- end .info (4) -->
 
@@ -485,8 +419,8 @@
 
                 <div class="header">
                     <h1>Оплата</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui hic laboriosam odio doloribus suscipit error nostrum totam dignissimos esse numquam voluptatum, aspernatur est, at voluptatem minus</p>
-                    <div class="underline"><i class="fa fa-users"></i></div>
+                    <p>Сейчас наш проект прохоит тестовый период, поэтому все тарифы являются бесплатными!</p>
+                    <!--<div class="underline"><i class="fa fa-users"></i></!--div> -->
                 </div> <!-- end .container> .header -->
 
                 <div class="row">
@@ -494,52 +428,44 @@
 
                         <div class="col-md-4">
                             <div class="price-table">
-                                <div class="rate">$0.00</div>
-                                <h2>Free Download</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit ipsa laborum vel in sint</p>
+                                <div class="rate">0.00₽</div>
+                                <h2>Бесплатный</h2>
                                 <ul>
-                                    <li><i class="fa fa-check"></i>This Feature Available</li>
-                                    <li><i class="fa fa-check"></i>Lorem ipsum dolor</li>
-                                    <li><i class="fa fa-times"></i>Available</li>
-                                    <li><i class="fa fa-times"></i>Fugit ipsa laborum</li>
-                                    <li><i class="fa fa-times"></i>consectetur adipisicing</li>
-                                    <li><i class="fa fa-times"></i>Lorem ipsum dolor</li>
+                                    <li><i class="fa fa-check"></i>50 товаров</li>
+                                    <li><i class="fa fa-check"></i>1 магазин</li>
+                                    <li><i class="fa fa-times"></i>Статистика продаж</li>
+                                    <li><i class="fa fa-times"></i>Несколько владельцев у одного магазина</li>
+
                                 </ul>
-                                <a href="#download" class="btn btn-default buy-now">Download</a>
+                                <a href="#download" class="btn btn-default buy-now">Начать</a>
                             </div> <!-- end .price-table -->
                         </div> <!-- end .price-list> .col-md-4 (1) -->
 
                         <div class="col-md-4">
-                            <div class="price-table featured-price">
-                                <div class="rate">$1.99</div>
-                                <h2>Standard</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit ipsa laborum vel in sint</p>
+                            <div class="price-table">
+                                <div class="rate">0.00₽</div>
+                                <h2>Стандартный</h2>
                                 <ul>
-                                    <li><i class="fa fa-check"></i>This Feature</li>
-                                    <li><i class="fa fa-check"></i>Lorem ipsum dolor</li>
-                                    <li><i class="fa fa-check"></i>Feature Available</li>
-                                    <li><i class="fa fa-check"></i>Fugit ipsa laborum vel</li>
-                                    <li><i class="fa fa-times"></i>consectetur adipisicing</li>
-                                    <li><i class="fa fa-times"></i>Lorem ipsum dolor</li>
+                                    <li><i class="fa fa-check"></i>150 товаров</li>
+                                    <li><i class="fa fa-check"></i>4 магазина</li>
+                                    <li><i class="fa fa-check"></i>Статистика продаж</li>
+                                    <li><i class="fa fa-times"></i>Несколько владельцев у одного магазина</li>
                                 </ul>
-                                <a href="#download" class="btn btn-default buy-now">Buy Now</a>
+                                <a href="#download" class="btn btn-default buy-now">Начать</a>
                             </div> <!-- end .price-table -->
                         </div> <!-- end .price-list> .col-md-4 (2) -->
 
                         <div class="col-md-4">
                             <div class="price-table">
-                                <div class="rate">$3.99</div>
-                                <h2>Premium</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit ipsa laborum vel in sint</p>
+                                <div class="rate">0.00₽</div>
+                                <h2>Премиальный</h2>
                                 <ul>
-                                    <li><i class="fa fa-check"></i>This Feature Available</li>
-                                    <li><i class="fa fa-check"></i>consectetur adipisicing</li>
-                                    <li><i class="fa fa-check"></i>Lorem ipsum dolor</li>
-                                    <li><i class="fa fa-check"></i>Fugit ipsa laborum vel</li>
-                                    <li><i class="fa fa-check"></i>inventore</li>
-                                    <li><i class="fa fa-check"></i>inventore hic</li>
+                                    <li><i class="fa fa-check"></i>∞ товаров</li>
+                                    <li><i class="fa fa-check"></i>10 магазинов</li>
+                                    <li><i class="fa fa-check"></i>Статистика продаж</li>
+                                    <li><i class="fa fa-check"></i>Несколько владельцев у одного магазина</li>
                                 </ul>
-                                <a href="#download" class="btn btn-default buy-now">Buy Now</a>
+                                <a href="#download" class="btn btn-default buy-now">Начать</a>
                             </div> <!-- end .price-table -->
                         </div> <!-- end .price-list> .col-md-4 (3) -->
 
@@ -569,42 +495,46 @@
                         </div>
                     </form>
                 </div>
+                <!--
                 <div class="social">
-                    <ul>
-                        <li><a class="twitter" href=""><i class="fa fa-twitter"></i></a></li>
-                        <li><a class="facebook" href=""><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="google-plus" href=""><i class="fa fa-google-plus"></i></a></li>
-                        <li><a class="youtube" href=""><i class="fa fa-youtube"></i></a></li>
-                        <li><a class="linkedin" href=""><i class="fa fa-linkedin"></i></a></li>
-                        <li><a class="pinterest" href=""><i class="fa fa-pinterest"></i></a></li>
-                        <li><a class="dribbble" href=""><i class="fa fa-dribbble"></i></a></li>
-                        <li><a class="flickr" href=""><i class="fa fa-flickr"></i></a></li>
-                    </ul>
+                  <ul>
+                    <li><a class="twitter" href=""><i class="fa fa-twitter"></i></a></li>
+                    <li><a class="facebook" href=""><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="google-plus" href=""><i class="fa fa-google-plus"></i></a></li>
+                    <li><a class="youtube" href=""><i class="fa fa-youtube"></i></a></li>
+                    <li><a class="linkedin" href=""><i class="fa fa-linkedin"></i></a></li>
+                    <li><a class="pinterest" href=""><i class="fa fa-pinterest"></i></a></li>
+                    <li><a class="dribbble" href=""><i class="fa fa-dribbble"></i></a></li>
+                    <li><a class="flickr" href=""><i class="fa fa-flickr"></i></a></li>
+                  </ul>
                 </div>
+                      -->
             </div>
         </div>
     </section>
     <!-- ====== End Subscribe Section ====== -->
     <!-- ====== Download Section ====== -->
+    <!--
     <section id="download">
-        <div class="bg-color">
-            <div class="download section-padding">
-                <div class="container">
+    <div class="bg-color">
+      <div class="download section-padding">
+        <div class="container">
 
-                    <div class="header">
-                        <h1>Попробуйте <strong><a target="_blank" href="https://t.me/asdgsdgsdcBot">asdgsdgsdcBot</a></strong> в Telegram</h1>
-                        <p>Первый созданный с помощью нашего сервиса чат-бот!</p>
-                        <div class="underline"><i class="fa fa-cloud-download"></i></div>
-                    </div> <!-- end .container > .header -->
-
-                </div> <!-- end .container -->
-            </div> <!-- end .download -->
-        </div> <!-- end .bg-color -->
+          <div class="header">
+            <h1>Попробуйте <strong><a target="_blank" href="https://t.me/asdgsdgsdcBot">@@asdgsdgsdcBot</a></strong> в Telegram</h1>
+            <p>Первый созданный с помощью нашего сервиса чат-бот!</p>
+            <div class="underline"><i class="fa fa-cloud-download"></i></div>
+          </div> <!-- end .container > .header -->
+    </div> <!-- end .container -->
+    </div> <!-- end .download -->
+    </div> <!-- end .bg-color -->
     </section>
+    -->
+
     <!-- ====== End Download Section ====== -->
     <!-- ====== Contact Section ====== -->
     <footer id="contact">
-        <div class="footer section-padding">
+        <div class="footer section-padding dark-bg">
             <div class="container">
                 <h1>Свяжитесь с нами</h1>
                 <form action="" class="form contact">
@@ -649,46 +579,40 @@
     </section>
     <!-- ====== End Copyright Section ====== -->
     <!-- jQuery -->
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/ScriptsHome/jquery.js"></script>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.js"></script>
 
     <!-- Modernizr js -->
-    <script src="~/Scripts/ScriptsHome/modernizr-latest.js"></script>
+    <script src="~/Scripts/modernizr-latest.js"></script>
 
     <!-- Bootstrap 3.2.0 js -->
-    <script src="~/Scripts/ScriptsHome/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
 
     <!-- Owl Carousel plugin -->
-    <script src="~/Scripts/ScriptsHome/owl.carousel.min.js"></script>
+    <script src="~/Scripts/owl.carousel.min.js"></script>
 
     <!-- ScrollTo js -->
-    <script src="~/Scripts/ScriptsHome/jquery.scrollto.min.js"></script>
+    <script src="~/Scripts/jquery.scrollto.min.js"></script>
 
     <!-- LocalScroll js -->
-    <script src="~/Scripts/ScriptsHome/jquery.localScroll.min.js"></script>
+    <script src="~/Scripts/jquery.localScroll.min.js"></script>
 
     <!-- jQuery Parallax plugin -->
-    <script src="~/Scripts/ScriptsHome/jquery.parallax-1.1.3.js"></script>
+    <script src="~/Scripts/jquery.parallax-1.1.3.js"></script>
 
     <!-- Skrollr js plugin -->
-    <script src="~/Scripts/ScriptsHome/skrollr.min.js"></script>
+    <script src="~/Scripts/skrollr.min.js"></script>
 
     <!-- jQuery One Page Nav Plugin -->
-    <script src="~/Scripts/ScriptsHome/jquery.nav.js"></script>
+    <script src="~/Scripts/query.nav.js"></script>
 
     <!-- jQuery Pretty Photo Plugin -->
     <script src="~/Scripts/ScriptsHome/jquery.prettyPhoto.js"></script>
 
 
     <!-- Custom JS -->
-    <script src="~/Scripts/ScriptsHome/main.js"></script>
+    <script src="~/Scripts/main.js"></script>
 
-    <script>
-      jQuery(document).ready(function($) {
-        "use strict";
 
-        jQuery("a[data-rel^='prettyPhoto']").prettyPhoto({social_tools:false});
-      });
-    </script>
 </body>
 </html>

@@ -1,27 +1,6 @@
-/* =========================================
 
-Theme Name: Blue App 
-Theme URI: http://mishk.at/
-Author: S M Mishkatul Islam
-Author URI: http://mishk.at/
-Description: One page Responsive HTML5 parallax business landing page
-Version: 1.0.0
-Tags: html5, themplate, landing page, app landing page
-
-========================================= */
-
-
-
-/* =========================================
-/* 1 - Google Font
-========================================= */
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,700);
 
-
-
-/* =========================================
- 2 - Global Styles
-========================================= */
 body {
     overflow-x: hidden !important;
     width:100%;
@@ -162,7 +141,7 @@ textarea:focus {
    3. Section Header                 
 ========================================= */
 header {
-    background: url(bg.jpg) 50% 0 no-repeat fixed;
+    background: url(bg1.jpg) 50% 0 no-repeat fixed;
     background-size: cover;
 }
 .top .photo-slide {

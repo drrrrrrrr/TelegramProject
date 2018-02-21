@@ -219,9 +219,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Css\application.min.css" />
-    <Content Include="Css\cssForHome\bg.jpg" />
-    <Content Include="Css\cssForHome\bg4.jpg" />
-    <Content Include="Css\cssForHome\bg5.jpg" />
+    <Content Include="Css\cssForHome\bg1.jpg" />
     <Content Include="Css\cssForHome\bootstrap.min.css" />
     <Content Include="Css\cssForHome\color\white.css" />
     <Content Include="Css\cssForHome\font-awesome.min.css" />
@@ -230,11 +228,26 @@
     <Content Include="Css\cssForHome\responsive.css" />
     <Content Include="Css\cssForHome\style.css" />
     <Content Include="Css\fontello\css\fontello.css" />
+    <Content Include="Css\fontello\font\fontello-69525316.eot" />
     <Content Include="Css\fontello\font\fontello-69525316.svg" />
+    <Content Include="Css\fontello\font\fontello-69525316.ttf" />
+    <Content Include="Css\fontello\font\fontello-69525316.woff" />
+    <Content Include="Css\fonts\font-awesome\fontawesome-webfont-.eot" />
+    <Content Include="Css\fonts\font-awesome\fontawesome-webfont-v=4.0.3.eot" />
     <Content Include="Css\fonts\font-awesome\fontawesome-webfont-v=4.0.3.svg" />
+    <Content Include="Css\fonts\font-awesome\fontawesome-webfont-v=4.0.3.ttf" />
+    <Content Include="Css\fonts\font-awesome\fontawesome-webfont-v=4.0.3.woff" />
+    <Content Include="Css\fonts\glyphicons\glyphicons-halflings-regular-.eot" />
+    <Content Include="Css\fonts\glyphicons\glyphicons-halflings-regular.eot" />
     <Content Include="Css\fonts\glyphicons\glyphicons-halflings-regular.svg" />
-    <Content Include="Css\select2.png" />
-    <Content Include="Css\select2x2.png" />
+    <Content Include="Css\fonts\glyphicons\glyphicons-halflings-regular.ttf" />
+    <Content Include="Css\fonts\glyphicons\glyphicons-halflings-regular.woff" />
+    <Content Include="Css\font\open-sans-bold.woff" />
+    <Content Include="Css\font\open-sans-italic-light.woff" />
+    <Content Include="Css\font\open-sans-italic.woff" />
+    <Content Include="Css\font\open-sans-light.woff" />
+    <Content Include="Css\font\open-sans-semibold.woff" />
+    <Content Include="Css\font\open-sans.woff" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -249,9 +262,11 @@
     <Content Include="Images\bg.jpg" />
     <Content Include="Images\bg4.jpg" />
     <Content Include="Images\bg5.jpg" />
+    <Content Include="Images\bg__.jpg" />
     <Content Include="Images\duel-phone-big.png" />
     <Content Include="Images\duel-phone-big1.png" />
     <Content Include="Images\favicon.ico" />
+    <Content Include="Images\its_easy.jpg" />
     <Content Include="Images\pattern5.png" />
     <Content Include="Images\phone.png" />
     <Content Include="Images\playstore.png" />
@@ -416,23 +431,6 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Css\fontello\font\fontello-69525316.eot" />
-    <Content Include="Css\fontello\font\fontello-69525316.ttf" />
-    <Content Include="Css\fontello\font\fontello-69525316.woff" />
-    <Content Include="Css\fonts\font-awesome\fontawesome-webfont-.eot" />
-    <Content Include="Css\fonts\font-awesome\fontawesome-webfont-v=4.0.3.eot" />
-    <Content Include="Css\fonts\font-awesome\fontawesome-webfont-v=4.0.3.ttf" />
-    <Content Include="Css\fonts\font-awesome\fontawesome-webfont-v=4.0.3.woff" />
-    <Content Include="Css\fonts\glyphicons\glyphicons-halflings-regular-.eot" />
-    <Content Include="Css\fonts\glyphicons\glyphicons-halflings-regular.eot" />
-    <Content Include="Css\fonts\glyphicons\glyphicons-halflings-regular.ttf" />
-    <Content Include="Css\fonts\glyphicons\glyphicons-halflings-regular.woff" />
-    <Content Include="Css\font\open-sans-bold.woff" />
-    <Content Include="Css\font\open-sans-italic-light.woff" />
-    <Content Include="Css\font\open-sans-italic.woff" />
-    <Content Include="Css\font\open-sans-light.woff" />
-    <Content Include="Css\font\open-sans-semibold.woff" />
-    <Content Include="Css\font\open-sans.woff" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Debug\edmxResourcesToEmbed\Models\Model1.csdl" />
     <Content Include="obj\Debug\edmxResourcesToEmbed\Models\Model1.msl" />
