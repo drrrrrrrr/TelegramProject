@@ -1,0 +1,14 @@
+C:\Users\Дима\source\repos\telegramBod\telegramBod\obj\Debug\telegramBod.csproj.CoreCompileInputs.cache
+C:\Users\Дима\source\repos\telegramBod\telegramBod\obj\Debug\telegramBod.csprojResolveAssemblyReference.cache
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\ApplicationInsights.config
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\telegramBod.dll.config
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\telegramBod.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\telegramBod.pdb
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.Net.Http.Formatting.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.Web.Http.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.Web.Http.WebHost.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.Net.Http.Formatting.xml
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.Web.Http.xml
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.Web.Http.WebHost.xml
+C:\Users\Дима\source\repos\telegramBod\telegramBod\obj\Debug\telegramBod.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\obj\Debug\telegramBod.pdb

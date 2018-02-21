@@ -97,7 +97,7 @@ namespace telegramBod.Controllers
                     if (user != null)
                     {
                         FormsAuthentication.SetAuthCookie(model.Name, true);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Admin");
                     }
                 }
                 else
