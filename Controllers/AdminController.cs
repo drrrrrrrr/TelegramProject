@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using telegramBod.Models;
+using telegramBod.Providers;
 
 namespace telegramBod.Controllers
 {
@@ -14,7 +15,18 @@ namespace telegramBod.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            CustomRoleProvider l = new CustomRoleProvider();
+            bool con = l.IsUserInRole(User.Identity.Name, "User");
+            if (!con)
+                return RedirectToAction("Index", "Home");
+            using (botEntities db = new botEntities())
+            {
+                
+                string u = User.Identity.Name;
+                Users user = db.Users.Where(x => x.Email == u).First();
+               
+            }
+                return View();
         }
         public ActionResult Andex()
         {

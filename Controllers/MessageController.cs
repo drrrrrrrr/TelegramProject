@@ -146,19 +146,40 @@ namespace telegramBod.Controllers
                     rec.AddBuy(_data[2], _data[3]);
                     answer = Shop(_data[2], _data[3], update, id, out reply_markup);
                     break;
-                case "отобразить": answer = rec.ShowMyBuy();
+                case "отобразить":
+                    answer = rec.ShowMyBuy();
+                    InlineKeyboard keyboard = new InlineKeyboard();
+                    List<InlineKeyboardButton> line = new List<InlineKeyboardButton>()
+                    {
+                        new InlineKeyboardButton("Оформить","корзина оформить"),
+                        new InlineKeyboardButton("Изменить","корзина изменить")
+                    };
+                    keyboard.AddLine(line);
+                    keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
+                    reply_markup = JsonConvert.SerializeObject(keyboard);
                     break;
+                case "изменить":answer = rec.ChangeMyBuy(out reply_markup);
+                    break;
+                case "удалить":
+                    rec.DeleteElement(_data[2], _data[3]);
+                    answer = rec.ChangeMyBuy(out reply_markup);
+                    break;
+                case "оформить":
+
                 default: break;
             }
 
-           // answer = "В корзине" + rec.Count + "  шт";
+            // answer = "В корзине" + rec.Count + "  шт";
             //InlineKeyboard keyboard = new InlineKeyboard();
             //keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
             //AddMainButtons(keyboard);
             //reply_markup = JsonConvert.SerializeObject(keyboard);
             //Shop(_data[2], _data[3], update, id, out reply_markup);
+            if (reply_markup == "")
+                MainMenu(update, id, out reply_markup);
             return answer;
         }
+      
         void AddRecycle(InlineKeyboard keyboard, string nameCategory, string nameProduct, Update update, int? id)
         {
             TelegramRecycle tel = new TelegramRecycle(update, id);
@@ -264,7 +285,6 @@ namespace telegramBod.Controllers
                         await client.PostAsync(url, form);
                 }
             }
-
         }
     }
 
@@ -284,6 +304,48 @@ namespace telegramBod.Controllers
             {
                 Count = bd.Recycle.Where(x => x.UserName == username).Where(x => x.TokenId == TokenIds).ToList().Count;
             }
+        }
+        public void DeleteElement(string category,string product)
+        {
+            using (botEntities bd = new botEntities())
+            {
+                bd.Recycle.Remove(bd.Recycle.Where(x => x.NameProduct == product).Where(x => x.NameCategory == category).First());
+                bd.SaveChanges();
+            }
+        }
+        public string ChangeMyBuy(out string reply_markup)
+        {
+            reply_markup = "";
+            List<Recycle> p;
+            List<Product> m = new List<Product>();
+            string[] ar;
+            using (botEntities bd = new botEntities())
+            {
+                p = bd.Recycle.Where(x => x.TokenId == TokenIds).Where(x => x.UserName == username).ToList();
+                 ar = new string[p.Count];
+                for (int i = 0; i < p.Count; i++)
+                {
+                    string namecat = p[i].NameCategory;
+                    string nameprod = p[i].NameProduct;
+                    Product k = bd.Product.Where(x => x.ProductName == nameprod).Where(x => x.Category.NameCategory == namecat).First();
+                    ar[i] = k.Category.NameCategory;
+                    m.Add(k);
+                }
+            }
+
+            if (m.Count == 0) return "Выберете пункт меню";
+            InlineKeyboard keyboard = new InlineKeyboard();
+            
+                for(int i =0;i<p.Count;i++)
+                {
+                    keyboard.AddButton(new InlineKeyboardButton("Удалить "+ m[i].ProductName+ "("+ar[i]+")"+" цена   "+ m[i].ProductPrice+
+                        "     1 шт","корзина удалить "+ar[i]+" "+m[i].ProductName));
+                }
+           
+            keyboard.AddButton(new InlineKeyboardButton("Оформить", "корзина оформить"));
+            keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
+            reply_markup = JsonConvert.SerializeObject(keyboard);
+            return "Изменение заказа";
         }
         public void AddBuy(string NameCategorys, string NameProducts)
         {
@@ -322,7 +384,7 @@ namespace telegramBod.Controllers
                 answer += Environment.NewLine;
                 count += v.ProductPrice;
             }
-            answer = "Итого  " + count.ToString();
+            answer += "Итого  " + count.ToString();
             return answer;
         }
     }

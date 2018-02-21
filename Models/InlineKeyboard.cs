@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace telegramBod.Models
@@ -69,6 +70,10 @@ namespace telegramBod.Models
     }
     public class InlineKeyboard
     {
+        public string RetReplyMarkup()
+        {
+            return JsonConvert.SerializeObject(inline_keyboard);
+        }
         public List<List<InlineKeyboardButton>> inline_keyboard { get; set; }
         public InlineKeyboard(List<List<InlineKeyboardButton>> inline)
         {
