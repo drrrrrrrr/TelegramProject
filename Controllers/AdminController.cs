@@ -19,7 +19,7 @@ namespace telegramBod.Controllers
             bool con = l.IsUserInRole(User.Identity.Name, "User");
             if (!con)
                 return RedirectToAction("Index", "Home");
-            using (botEntities db = new botEntities())
+            using (botEntities1 db = new botEntities1())
             {
                 
                 string u = User.Identity.Name;
@@ -36,9 +36,9 @@ namespace telegramBod.Controllers
         {
            
             string token;
-            using (botEntities bot = new botEntities())
-                token = bot.Token.Where(x => x.Id == 4).First().token1;
-            SetWebHook(token, 4);
+            using (botEntities1 bot = new botEntities1())
+                token = bot.Token.Where(x => x.Id == 6).First().token1;
+            SetWebHook(token, 6);
             return "Установли";
         }
         static string SetWebHook(string token, int i)

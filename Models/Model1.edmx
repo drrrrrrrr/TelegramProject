@@ -10,7 +10,7 @@
             <PropertyRef Name="CategoryId" />
           </Key>
           <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NameCategory" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NameCategory" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="TokenId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Contact">
@@ -18,20 +18,20 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Names" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Names" Type="nvarchar" MaxLength="250" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Mesage" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" />
+          <Property Name="Mesage" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
           </Key>
           <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="ProductDescription" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ProductDescription" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="ProductPrice" Type="int" Nullable="false" />
-          <Property Name="ProductPhoto" Type="varchar" MaxLength="100" />
+          <Property Name="ProductPhoto" Type="nvarchar" MaxLength="250" />
           <Property Name="CategoryId" Type="int" />
         </EntityType>
         <EntityType Name="Recycle">
@@ -39,8 +39,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NameCategory" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="NameProduct" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NameCategory" Type="nvarchar" MaxLength="250" />
+          <Property Name="NameProduct" Type="nvarchar" MaxLength="250" />
           <Property Name="UserName" Type="varchar" MaxLength="140" Nullable="false" />
           <Property Name="TokenId" Type="int" Nullable="false" />
         </EntityType>
@@ -175,7 +175,7 @@
             <PropertyRef Name="CategoryId" />
           </Key>
           <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NameCategory" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TokenId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Token" Relationship="Self.FK__Category__TokenI__03F0984C" FromRole="Category" ToRole="Token" />
           <NavigationProperty Name="Product" Relationship="Self.FK__Product__Categor__06CD04F7" FromRole="Category" ToRole="Product" />
@@ -185,20 +185,20 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Names" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Names" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Mesage" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Mesage" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
           </Key>
           <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ProductDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProductPrice" Type="Int32" Nullable="false" />
-          <Property Name="ProductPhoto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProductPhoto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="CategoryId" Type="Int32" />
           <NavigationProperty Name="Category" Relationship="Self.FK__Product__Categor__06CD04F7" FromRole="Product" ToRole="Category" />
         </EntityType>
@@ -207,8 +207,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NameCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NameProduct" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NameCategory" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="NameProduct" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="UserName" Type="String" MaxLength="140" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TokenId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Token" Relationship="Self.FK__Recycle__TokenId__09A971A2" FromRole="Recycle" ToRole="Token" />
@@ -310,7 +310,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="botEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="botEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Category" EntityType="Self.Category" />
           <EntitySet Name="Contact" EntityType="Self.Contact" />
           <EntitySet Name="Product" EntityType="Self.Product" />
@@ -345,7 +345,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище botModelContainer" CdmEntityContainer="botEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище botModelContainer" CdmEntityContainer="botEntities1">
           <EntitySetMapping Name="Category">
             <EntityTypeMapping TypeName="botModel.Category">
               <MappingFragment StoreEntitySet="Category">

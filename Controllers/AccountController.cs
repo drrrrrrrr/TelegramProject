@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using telegramBod.Models;
@@ -38,7 +35,7 @@ namespace telegramBod.Controllers
             {
                 // поиск пользователя в бд
                 Users user = null;
-                using (botEntities db = new botEntities())
+                using (botEntities1 db = new botEntities1())
                 {
                     user = db.Users.FirstOrDefault(u => u.Email == model.Name && u.Passwords == model.Password);
                     string a;
@@ -77,14 +74,14 @@ namespace telegramBod.Controllers
             {
                 int count;
                 Users user = null;
-                using (botEntities db = new botEntities())
+                using (botEntities1 db = new botEntities1())
                 {
                     user = db.Users.FirstOrDefault(u => u.Email == model.Name);
                 }
                 if (user == null)
                 {
                     // создаем нового пользователя
-                    using (botEntities db = new botEntities())
+                    using (botEntities1 db = new botEntities1())
                     {
                         count = db.Users.Count() + 1;
                         db.Users.Add(new Users { Email = model.Name, Passwords = model.Password, RoleId = 1, Id = count });

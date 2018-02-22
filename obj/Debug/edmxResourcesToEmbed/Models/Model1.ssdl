@@ -5,7 +5,7 @@
       <PropertyRef Name="CategoryId" />
     </Key>
     <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NameCategory" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="NameCategory" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="TokenId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Contact">
@@ -13,20 +13,20 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Names" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Names" Type="nvarchar" MaxLength="250" />
     <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="Mesage" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" />
+    <Property Name="Mesage" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="ProductId" />
     </Key>
     <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ProductName" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="ProductDescription" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="ProductDescription" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="ProductPrice" Type="int" Nullable="false" />
-    <Property Name="ProductPhoto" Type="varchar" MaxLength="100" />
+    <Property Name="ProductPhoto" Type="nvarchar" MaxLength="250" />
     <Property Name="CategoryId" Type="int" />
   </EntityType>
   <EntityType Name="Recycle">
@@ -34,8 +34,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="NameCategory" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="NameProduct" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="NameCategory" Type="nvarchar" MaxLength="250" />
+    <Property Name="NameProduct" Type="nvarchar" MaxLength="250" />
     <Property Name="UserName" Type="varchar" MaxLength="140" Nullable="false" />
     <Property Name="TokenId" Type="int" Nullable="false" />
   </EntityType>

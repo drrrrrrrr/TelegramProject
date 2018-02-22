@@ -1,4 +1,5 @@
 ﻿
+
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,20 +20,20 @@ namespace telegramBod.Controllers
 {
     public class MessageController : ApiController
     {
-       
+
         [Route(@"api/message/update/{id}")] //webhook uri part
-        public  OkResult Update([FromBody]Update update, int? id)
+        public OkResult Update([FromBody]Update update, int? id)
         {
-        //    try
-        //    {
-        //        SendPhotoIputFile(update, id, HostingEnvironment.MapPath(@"/Images/01.jpg"));
-        //        Thread.Sleep(2000);
-        //        SendMessage(update.message.chat.id, "yra", ReceiveToken(update, id));
-        //    }
-        //    catch
-        //    {
-        //        SendMessage(update.message.chat.id, "sad", ReceiveToken(update, id));
-        //    }
+            //    try
+            //    {
+            //        SendPhotoIputFile(update, id, HostingEnvironment.MapPath(@"/Images/01.jpg"));
+            //        Thread.Sleep(2000);
+            //        SendMessage(update.message.chat.id, "yra", ReceiveToken(update, id));
+            //    }
+            //    catch
+            //    {
+            //        SendMessage(update.message.chat.id, "sad", ReceiveToken(update, id));
+            //    }
             if (id != null)
             {
                 if (update.message != null)
@@ -46,7 +47,7 @@ namespace telegramBod.Controllers
                     return Ok();
                 }
             }
-            
+
             return Ok();
         }
         string Text(Update up)
@@ -58,9 +59,9 @@ namespace telegramBod.Controllers
         {
             string reply_markup = "";
             string answer = "";
-           
-                answer = MainMenu(update, id, out reply_markup);
-            
+
+            answer = MainMenu(update, id, out reply_markup);
+
             //catch
             //{
             //    answer += "  сломался";
@@ -89,7 +90,7 @@ namespace telegramBod.Controllers
         string ReceiveToken(Update update, int? id)
         {
             string token;
-            using (botEntities bot = new botEntities())
+            using (botEntities1 bot = new botEntities1())
                 token = bot.Token.Where(x => x.Id == id).First().token1;
             return token;
         }
@@ -158,7 +159,8 @@ namespace telegramBod.Controllers
                     keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
                     reply_markup = JsonConvert.SerializeObject(keyboard);
                     break;
-                case "изменить":answer = rec.ChangeMyBuy(out reply_markup);
+                case "изменить":
+                    answer = rec.ChangeMyBuy(out reply_markup);
                     break;
                 case "удалить":
                     rec.DeleteElement(_data[2], _data[3]);
@@ -179,7 +181,7 @@ namespace telegramBod.Controllers
                 MainMenu(update, id, out reply_markup);
             return answer;
         }
-      
+
         void AddRecycle(InlineKeyboard keyboard, string nameCategory, string nameProduct, Update update, int? id)
         {
             TelegramRecycle tel = new TelegramRecycle(update, id);
@@ -187,15 +189,15 @@ namespace telegramBod.Controllers
             {
                 new InlineKeyboardButton("Корзина ("+tel.Count+")", "корзина отобразить" ),
             };
-            if (nameProduct == "" || nameCategory=="")
+            if (nameProduct == "" || nameCategory == "")
             {
                 keyboard.AddLine(line);
                 return;
             }
-            line.Add(new InlineKeyboardButton("Добавить в корзину", "корзина покупка " + nameCategory + " " + nameProduct));            
+            line.Add(new InlineKeyboardButton("Добавить в корзину", "корзина покупка " + nameCategory + " " + nameProduct));
             keyboard.AddLine(line);
         }
-        void AddMainButtons(InlineKeyboard keyboard,Update update,int ? id)
+        void AddMainButtons(InlineKeyboard keyboard, Update update, int? id)
         {
             TelegramRecycle tel = new TelegramRecycle(update, id);
             List<InlineKeyboardButton> line = new List<InlineKeyboardButton>()
@@ -214,7 +216,7 @@ namespace telegramBod.Controllers
             List<Category> cat = null;
             List<Product> p = null;
             // SendMessage(update.callback_query.from.id, category , ReceiveToken(update, id));
-            using (botEntities bd = new botEntities())
+            using (botEntities1 bd = new botEntities1())
             {
                 try
                 {
@@ -224,7 +226,7 @@ namespace telegramBod.Controllers
                 }
                 catch
                 {
-                   //   SendMessage(update.callback_query.from.id, "БД УПало", ReceiveToken(update, id));
+                    //   SendMessage(update.callback_query.from.id, "БД УПало", ReceiveToken(update, id));
                 }
             }
             InlineKeyboard keyboard = new InlineKeyboard();
@@ -237,11 +239,11 @@ namespace telegramBod.Controllers
 
                   k.ProductName, k.Category.NameCategory + " " + k.ProductName), i++ / 2);
             }
-            AddRecycle(keyboard, category, nameProduct,update,id);
+            AddRecycle(keyboard, category, nameProduct, update, id);
             Product chooseProduct = p.Where(x => x.ProductName == nameProduct).First();
             answer += chooseProduct.ProductPrice + Environment.NewLine + "  " + " " + chooseProduct.ProductDescription;
             keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
-            AddMainButtons(keyboard,update,id);
+            AddMainButtons(keyboard, update, id);
             reply_markup = JsonConvert.SerializeObject(keyboard);
             return answer;
         }
@@ -250,7 +252,7 @@ namespace telegramBod.Controllers
             List<Category> list;
             string token = "";
             int i = 0;
-            using (botEntities bd = new botEntities())
+            using (botEntities1 bd = new botEntities1())
             {
                 list = bd.Category.Where(x => x.Token.Id == id).ToList();
                 token = ReceiveToken(update, id);
@@ -262,13 +264,13 @@ namespace telegramBod.Controllers
                     k.NameCategory
                     ), i++ / 2);
             }
-            AddRecycle(keyboard,"","",update, id);
-            AddMainButtons(keyboard,update,id);
-            
+            AddRecycle(keyboard, "", "", update, id);
+            AddMainButtons(keyboard, update, id);
+
             reply_markup = JsonConvert.SerializeObject(keyboard);
             return "Все категории";
         }
-        async public Task SendPhotoIputFile(Update update,int ? id ,string pathToPhoto, string catprion = "w")
+        async public Task SendPhotoIputFile(Update update, int? id, string pathToPhoto, string catprion = "w")
         {
             string BaseUrl = "https://api.telegram.org/bot";
             using (MultipartFormDataContent form = new MultipartFormDataContent())
@@ -289,25 +291,25 @@ namespace telegramBod.Controllers
     }
 
     class TelegramRecycle
-    { 
+    {
         string username;
         int TokenIds;
         public int? Count { get; private set; }
         public TelegramRecycle(Update update, int? id)
         {
-            if(update.callback_query==null)
-            this.username = update.message.from.id.ToString();
+            if (update.callback_query == null)
+                this.username = update.message.from.id.ToString();
             else
                 this.username = update.callback_query.from.id.ToString();
             TokenIds = (int)id;
-            using (botEntities bd = new botEntities())
+            using (botEntities1 bd = new botEntities1())
             {
                 Count = bd.Recycle.Where(x => x.UserName == username).Where(x => x.TokenId == TokenIds).ToList().Count;
             }
         }
-        public void DeleteElement(string category,string product)
+        public void DeleteElement(string category, string product)
         {
-            using (botEntities bd = new botEntities())
+            using (botEntities1 bd = new botEntities1())
             {
                 bd.Recycle.Remove(bd.Recycle.Where(x => x.NameProduct == product).Where(x => x.NameCategory == category).First());
                 bd.SaveChanges();
@@ -319,29 +321,36 @@ namespace telegramBod.Controllers
             List<Recycle> p;
             List<Product> m = new List<Product>();
             string[] ar;
-            using (botEntities bd = new botEntities())
+            using (botEntities1 bd = new botEntities1())
             {
                 p = bd.Recycle.Where(x => x.TokenId == TokenIds).Where(x => x.UserName == username).ToList();
-                 ar = new string[p.Count];
+                ar = new string[p.Count];
                 for (int i = 0; i < p.Count; i++)
                 {
-                    string namecat = p[i].NameCategory;
-                    string nameprod = p[i].NameProduct;
-                    Product k = bd.Product.Where(x => x.ProductName == nameprod).Where(x => x.Category.NameCategory == namecat).First();
-                    ar[i] = k.Category.NameCategory;
-                    m.Add(k);
+                    try
+                    {
+                        string namecat = p[i].NameCategory;
+                        string nameprod = p[i].NameProduct;
+                        Product k = bd.Product.Where(x => x.ProductName == nameprod).Where(x => x.Category.NameCategory == namecat).First();
+                        ar[i] = k.Category.NameCategory;
+                        m.Add(k);
+                    }
+                    catch
+                    {
+
+                    }
                 }
             }
 
             if (m.Count == 0) return "Выберете пункт меню";
             InlineKeyboard keyboard = new InlineKeyboard();
-            
-                for(int i =0;i<p.Count;i++)
-                {
-                    keyboard.AddButton(new InlineKeyboardButton("Удалить "+ m[i].ProductName+ "("+ar[i]+")"+" цена   "+ m[i].ProductPrice+
-                        "     1 шт","корзина удалить "+ar[i]+" "+m[i].ProductName));
-                }
-           
+
+            for (int i = 0; i < p.Count; i++)
+            {
+                keyboard.AddButton(new InlineKeyboardButton("Удалить " + m[i].ProductName + "(" + ar[i] + ")" + " цена   " + m[i].ProductPrice +
+                    "     1 шт", "корзина удалить " + ar[i] + " " + m[i].ProductName));
+            }
+
             keyboard.AddButton(new InlineKeyboardButton("Оформить", "корзина оформить"));
             keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
             reply_markup = JsonConvert.SerializeObject(keyboard);
@@ -349,8 +358,9 @@ namespace telegramBod.Controllers
         }
         public void AddBuy(string NameCategorys, string NameProducts)
         {
-            using (botEntities bd = new botEntities())
+            using (botEntities1 bd = new botEntities1())
             {
+
                 bd.Recycle.Add(new Recycle()
                 {
                     NameCategory = NameCategorys,
@@ -367,17 +377,25 @@ namespace telegramBod.Controllers
             List<Recycle> p;
             int count = 0;
             List<Product> m = new List<Product>();
-            using (botEntities bd = new botEntities())
+            using (botEntities1 bd = new botEntities1())
             {
                 p = bd.Recycle.Where(x => x.TokenId == TokenIds).Where(x => x.UserName == username).ToList();
                 for (int i = 0; i < p.Count; i++)
                 {
-                    string namecat = p[i].NameCategory;
-                    string nameprod = p[i].NameProduct;
-                    Product k = bd.Product.Where(x => x.ProductName == nameprod).Where(x => x.Category.NameCategory == namecat).First();
-                    m.Add(k);
+                    try
+                    {
+                        string namecat = p[i].NameCategory;
+                        string nameprod = p[i].NameProduct;
+                        Product k = bd.Product.Where(x => x.ProductName == nameprod).Where(x => x.Category.NameCategory == namecat).First();
+                        m.Add(k);
+                    }
+                    catch
+                    {
+
+                    }
                 }
             }
+           // return m.Count().ToString();
             foreach (Product v in m)
             {
                 answer += v.ProductName + "  " + v.ProductPrice;
@@ -389,4 +407,5 @@ namespace telegramBod.Controllers
         }
     }
 }
+
 

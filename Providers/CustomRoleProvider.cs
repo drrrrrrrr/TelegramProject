@@ -39,7 +39,7 @@ namespace telegramBod.Providers
         public override string[] GetRolesForUser(string username)
         {
             string[] roles = new string[] { };
-            using (botEntities db = new botEntities())
+            using (botEntities1 db = new botEntities1())
             {
                 // Получаем пользователя
                 Users user = db.Users.FirstOrDefault(u => u.Email == username);
@@ -59,7 +59,7 @@ namespace telegramBod.Providers
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            using (botEntities db = new botEntities())
+            using (botEntities1 db = new botEntities1())
             {
                 // Получаем пользователя
                 Users user = db.Users.FirstOrDefault(u => u.Email == username);

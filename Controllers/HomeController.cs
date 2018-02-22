@@ -58,7 +58,7 @@ namespace telegramBod.Controllers
         string ReceiveToken(Update update, int? id)
         {
             string token;
-            using (botEntities bot = new botEntities())
+            using (botEntities1 bot = new botEntities1())
                 token = bot.Token.Where(x => x.Id == id).First().token1;
             return token;
         }
