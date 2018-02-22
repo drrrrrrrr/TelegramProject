@@ -99,13 +99,13 @@ namespace telegramBod.Models
         public long file_size { get; set; }
     }
 
-    //public class Contact
-    //{
-    //    public string phone_number { get; set; }
-    //    public string first_name { get; set; }
-    //    public string last_name { get; set; }
-    //    public long user_id { get; set; }
-    //}
+    public class Contact
+    {
+        public string phone_number { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public long user_id { get; set; }
+    }
 
     public class Location
     {

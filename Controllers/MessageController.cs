@@ -38,8 +38,18 @@ namespace telegramBod.Controllers
             {
                 if (update.message != null)
                 {
-                    SendAnswer(update, update.message.chat.id, Text(update), id);
-                    return Ok();
+                    if (update.message.text != null)
+                    {
+                        SendAnswer(update, update.message.chat.id, Text(update), id);
+                        return Ok();
+                    }
+                  if(update.message.contact!=null)
+                    {
+                        SendMessageToAdmin(update,id);
+                        SendMessage(update.message.contact.user_id, "Ваши контактные данные отправлены", ReceiveToken(update, id), KillButtons());
+                        SendAnswer(update, update.message.contact.user_id, "/start", id);
+                       
+                    }
                 }
                 if (update.callback_query != null)
                 {
@@ -49,6 +59,32 @@ namespace telegramBod.Controllers
             }
 
             return Ok();
+        }
+
+        string KillButtons()
+        {
+            return JsonConvert.SerializeObject(new RemoveButtons());
+        }
+        public class RemoveButtons
+        {
+            public bool remove_keyboard { get; set; }
+            public RemoveButtons()
+            {
+                remove_keyboard = true;
+            }
+        }
+
+        void SendMessageToAdmin(Update update,int? id)
+        {
+            long chat_id = 378999844;
+            string message = update.message.contact.first_name + "   " + update.message.contact.user_id + "  " + update.message.contact.phone_number ;
+            string BaseUrl = "https://api.telegram.org/bot";
+            string address = BaseUrl + ReceiveToken(update,id) + "/sendMessage";
+            NameValueCollection nvc = new NameValueCollection();
+            nvc.Add("chat_id", chat_id.ToString());
+            nvc.Add("text", message);
+            using (WebClient client = new WebClient())
+                client.UploadValues(address, nvc);
         }
         string Text(Update up)
         {
@@ -167,8 +203,8 @@ namespace telegramBod.Controllers
                     answer = rec.ChangeMyBuy(out reply_markup);
                     break;
                 case "оформить":
-                    answer = "Выберете вариант: /n/n" +
-                        "1.Отправить телефон и мы с вами свяжемся /n" +
+                    answer = "Выберете вариант: /n /n" +
+                        "1.Отправить телефон и мы с вами свяжемся n" +
                         "2.Написать адрес самостоятельно";
                     reply_markup = ReturnReplyToAdmin();
                     SendMessage(update.callback_query.from.id, answer, ReceiveToken(update, id), reply_markup);
