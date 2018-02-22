@@ -132,7 +132,7 @@ namespace telegramBod.Controllers
                     answer = Shop(_data.Length < 1 ? "" : _data[0], _data.Length < 2 ? "" : _data[1], update, id, out reply_markup);
                     break;
             }
-            answer += Environment.NewLine + update.callback_query.data;
+            if (answer == "отмена") return;
             ChangeMessage(update, answer, id, reply_markup);
         }
         string Recycle(Update update, int? id, out string reply_markup)
@@ -167,7 +167,12 @@ namespace telegramBod.Controllers
                     answer = rec.ChangeMyBuy(out reply_markup);
                     break;
                 case "оформить":
-
+                    answer = "Выберете вариант: /n/n" +
+                        "1.Отправить телефон и мы с вами свяжемся /n" +
+                        "2.Написать адрес самостоятельно";
+                    reply_markup = ReturnReplyToAdmin();
+                    SendMessage(update.callback_query.from.id, answer, ReceiveToken(update, id), reply_markup);
+                    return "отмена";
                 default: break;
             }
 
@@ -211,7 +216,7 @@ namespace telegramBod.Controllers
         {
             //string category = shop.Split(' ')[0];
             //string nameProduct = shop.Split(' ').Length < 2 ? "" : shop.Split(' ')[1];
-            string answer = "Привет";
+            string answer = "!";
             reply_markup = "";
             List<Category> cat = null;
             List<Product> p = null;
@@ -287,6 +292,20 @@ namespace telegramBod.Controllers
                         await client.PostAsync(url, form);
                 }
             }
+        }
+        string ReturnReplyToAdmin()
+        {
+            List<KeyboardButton> keyboardButton = new List<KeyboardButton>()
+            {
+                new KeyboardButton("Отправить мой телефон",true),
+                new KeyboardButton("Написать адрес")
+            };
+            List<List<KeyboardButton>> keyboard = new List<List<KeyboardButton>>()
+            {
+                keyboardButton
+            };
+            TeleButtons tel = new TeleButtons(keyboard);
+            return JsonConvert.SerializeObject(tel);
         }
     }
 
@@ -404,6 +423,28 @@ namespace telegramBod.Controllers
             }
             answer += "Итого  " + count.ToString();
             return answer;
+        }
+    }
+    public class TeleButtons
+    {
+        public List<List<KeyboardButton>> keyboard { get; set; }
+        public bool one_time_keyboard { get; set; }
+        public TeleButtons(List<List<KeyboardButton>> inkeyboard, bool oneTime = true)
+        {
+            keyboard = inkeyboard;
+            one_time_keyboard = oneTime;
+        }
+    }
+    public class KeyboardButton
+    {
+        public string text { get; set; }
+        public bool request_contact { get; set; }
+        public bool request_location { get; set; }
+        public KeyboardButton(string _text, bool _request_con = false, bool _reques_loc = false)
+        {
+            text = _text;
+            request_contact = _request_con;
+            request_location = _reques_loc;
         }
     }
 }
