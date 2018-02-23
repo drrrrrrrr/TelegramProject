@@ -1,0 +1,34 @@
+﻿@model IEnumerable<IEnumerable<telegramBod.Models.Category>>
+
+@{
+    ViewBag.Title = "ShowShop";
+}
+
+<h2>ShowShop</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+
+@foreach (var k in Model)
+{
+    
+    foreach (var m in k)
+    {
+        <tr>
+            <td>
+                @m.NameCategory
+               
+            </td>
+                
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = m.CategoryId }) |
+                @Html.ActionLink("Details", "Details", new { id = m.CategoryId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = m.CategoryId })
+            </td>
+        </tr>
+    }
+}
+
+</table>

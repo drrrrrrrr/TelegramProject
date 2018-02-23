@@ -36,16 +36,17 @@ namespace telegramBod.Controllers
             {
                 // поиск пользователя в бд
                 Users user = null;
+                string a;
                 using (botEntities2 db = new botEntities2())
                 {
                     user = db.Users.FirstOrDefault(u => u.Email == model.Name && u.Passwords == model.Password);
-                    string a;
+                    a=user.Roles.Names;
                 }
                 if (user != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.Name, true);
                     
-                    if(user.Roles.Names=="User")
+                    if(a=="User")
                     {
                         return RedirectToAction("Index", "Admin");
                     }
