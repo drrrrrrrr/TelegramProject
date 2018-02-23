@@ -23,17 +23,9 @@ namespace telegramBod.Controllers
 
         [Route(@"api/message/update/{id}")] //webhook uri part
         public OkResult Update([FromBody]Update update, int? id)
-        {
-            //    try
-            //    {
-            //        SendPhotoIputFile(update, id, HostingEnvironment.MapPath(@"/Images/01.jpg"));
-            //        Thread.Sleep(2000);
-            //        SendMessage(update.message.chat.id, "yra", ReceiveToken(update, id));
-            //    }
-            //    catch
-            //    {
-            //        SendMessage(update.message.chat.id, "sad", ReceiveToken(update, id));
-            //    }
+        { 
+        //{
+        //    SendPhotoIputFile(update, id, "asda", "");
             if (id != null)
             {
                 if (update.message != null)
@@ -43,12 +35,12 @@ namespace telegramBod.Controllers
                         SendAnswer(update, update.message.chat.id, Text(update), id);
                         return Ok();
                     }
-                  if(update.message.contact!=null)
+                    if (update.message.contact != null)
                     {
-                        SendMessageToAdmin(update,id);
+                        SendMessageToAdmin(update, id);
                         SendMessage(update.message.contact.user_id, "Ваши контактные данные отправлены", ReceiveToken(update, id), KillButtons());
                         SendAnswer(update, update.message.contact.user_id, "/start", id);
-                       
+
                     }
                 }
                 if (update.callback_query != null)
@@ -95,13 +87,17 @@ namespace telegramBod.Controllers
         {
             string reply_markup = "";
             string answer = "";
-
-            answer = MainMenu(update, id, out reply_markup);
-
-            //catch
-            //{
-            //    answer += "  сломался";
-            //}
+            switch (message.ToLower())
+            {
+                case "/start":
+                    answer = MainMenu(update, id, out reply_markup);
+                    break;
+            
+                default:
+                    answer = "Выберете пункт из меню";
+                    MainMenu(update, id, out reply_markup);
+                    break;
+             }
             string token = ReceiveToken(update, id);
             if (update.message.chat.id != 0)
                 SendMessage(update.message.chat.id, answer, token, reply_markup);
@@ -119,6 +115,7 @@ namespace telegramBod.Controllers
             {
                 nvc.Add("reply_markup", reply_markup);
             }
+            nvc.Add("parse_mode", "HTML");
             using (WebClient client = new WebClient())
                 client.UploadValues(address, nvc);
         }
@@ -142,6 +139,7 @@ namespace telegramBod.Controllers
             nvc.Add("text", message);
             if (reply_markup != "")
                 nvc.Add("reply_markup", reply_markup);
+            nvc.Add("parse_mode", "HTML");
             using (WebClient client = new WebClient())
                 client.UploadValues(adress, nvc);
         }
@@ -165,12 +163,20 @@ namespace telegramBod.Controllers
                     answer = Recycle(update, id, out reply_markup);
                     break;
                 default:
+                   
                     answer = Shop(_data.Length < 1 ? "" : _data[0], _data.Length < 2 ? "" : _data[1], update, id, out reply_markup);
+                    //SendPhotoIputFile(update, id, answer, reply_markup);
+                    //Thread.Sleep(10000);
+                    //return;
                     break;
             }
             if (answer == "отмена") return;
             ChangeMessage(update, answer, id, reply_markup);
         }
+       //void editMessageCaption(Update update,string answer,int ? id ,string reply_markup)
+       // {
+
+       // }
         string Recycle(Update update, int? id, out string reply_markup)
         {
             string answer = "";
@@ -192,7 +198,7 @@ namespace telegramBod.Controllers
                         new InlineKeyboardButton("Изменить","корзина изменить")
                     };
                     keyboard.AddLine(line);
-                    keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
+                    keyboard.AddButton(new InlineKeyboardButton("⬅️ Назад", "about"));
                     reply_markup = JsonConvert.SerializeObject(keyboard);
                     break;
                 case "изменить":
@@ -203,9 +209,8 @@ namespace telegramBod.Controllers
                     answer = rec.ChangeMyBuy(out reply_markup);
                     break;
                 case "оформить":
-                    answer = "Выберете вариант: /n /n" +
-                        "1.Отправить телефон и мы с вами свяжемся n" +
-                        "2.Написать адрес самостоятельно";
+                    answer = "Выберете вариант:" +Environment.NewLine+Environment.NewLine+
+                        "Отправить телефон и мы с вами свяжемся n";
                     reply_markup = ReturnReplyToAdmin();
                     SendMessage(update.callback_query.from.id, answer, ReceiveToken(update, id), reply_markup);
                     return "отмена";
@@ -228,7 +233,7 @@ namespace telegramBod.Controllers
             TelegramRecycle tel = new TelegramRecycle(update, id);
             List<InlineKeyboardButton> line = new List<InlineKeyboardButton>()
             {
-                new InlineKeyboardButton("Корзина ("+tel.Count+")", "корзина отобразить" ),
+                new InlineKeyboardButton("♻️ Корзина ("+tel.Count+")", "корзина отобразить" ),
             };
             if (nameProduct == "" || nameCategory == "")
             {
@@ -243,8 +248,8 @@ namespace telegramBod.Controllers
             TelegramRecycle tel = new TelegramRecycle(update, id);
             List<InlineKeyboardButton> line = new List<InlineKeyboardButton>()
             {
-                new InlineKeyboardButton("Есть вопрос", "?" ),
-                new InlineKeyboardButton("О нас", "about" )
+                new InlineKeyboardButton("❓ Есть вопрос", "?" ),
+                new InlineKeyboardButton("📖 О нас", "about" )
             };
             keyboard.AddLine(line);
         }
@@ -282,8 +287,8 @@ namespace telegramBod.Controllers
             }
             AddRecycle(keyboard, category, nameProduct, update, id);
             Product chooseProduct = p.Where(x => x.ProductName == nameProduct).First();
-            answer += chooseProduct.ProductPrice + Environment.NewLine + "  " + " " + chooseProduct.ProductDescription;
-            keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
+            answer = "Стоимость товара "+ chooseProduct.ProductPrice+"руб" + Environment.NewLine + "Описание" + " " + chooseProduct.ProductDescription;
+            keyboard.AddButton(new InlineKeyboardButton("⬅️ Назад", "about"));
             AddMainButtons(keyboard, update, id);
             reply_markup = JsonConvert.SerializeObject(keyboard);
             return answer;
@@ -311,30 +316,35 @@ namespace telegramBod.Controllers
             reply_markup = JsonConvert.SerializeObject(keyboard);
             return "Все категории";
         }
-        async public Task SendPhotoIputFile(Update update, int? id, string pathToPhoto, string catprion = "w")
+      public   async Task<HttpResponseMessage> SendPhotoIputFile(Update update, int? id, string answer, string replyMarkup)
         {
+            long from = 378999844;
+            string pathToPhoto = HostingEnvironment.MapPath("~/Images/01.jpg");
             string BaseUrl = "https://api.telegram.org/bot";
             using (MultipartFormDataContent form = new MultipartFormDataContent())
             {
-                string url = BaseUrl + "530915522:AAEvYP3k4CwGmbLMZ41TlPSBouOXU_di1m4" + "/sendPhoto";
+                string url = BaseUrl + "529156147:AAF1nyFwPKMw606JZhlFUrm9MUbaNizQ3rc" + "/sendPhoto";
                 string fileName = pathToPhoto.Split('\\').Last();
-
-                form.Add(new StringContent(update.message.from.id.ToString(), Encoding.UTF8), "chat_id");
-                form.Add(new StringContent(catprion.ToString(), Encoding.UTF8), "caption");
+                if(replyMarkup!="")
+                form.Add(new StringContent(replyMarkup, Encoding.UTF8), "reply_markup");
+                form.Add(new StringContent(from.ToString(), Encoding.UTF8), "chat_id");
+                form.Add(new StringContent(answer.ToString(), Encoding.UTF8), "caption");
                 using (FileStream fileStream = new FileStream(pathToPhoto, FileMode.Open, FileAccess.Read))
                 {
                     form.Add(new StreamContent(fileStream), "photo", fileName);
                     using (HttpClient client = new HttpClient())
                         await client.PostAsync(url, form);
                 }
+                return null;
+                
             }
+            
         }
         string ReturnReplyToAdmin()
         {
             List<KeyboardButton> keyboardButton = new List<KeyboardButton>()
             {
-                new KeyboardButton("Отправить мой телефон",true),
-                new KeyboardButton("Написать адрес")
+                new KeyboardButton("Отправить мой телефон",true)
             };
             List<List<KeyboardButton>> keyboard = new List<List<KeyboardButton>>()
             {
@@ -407,7 +417,7 @@ namespace telegramBod.Controllers
             }
 
             keyboard.AddButton(new InlineKeyboardButton("Оформить", "корзина оформить"));
-            keyboard.AddButton(new InlineKeyboardButton("Назад", "about"));
+            keyboard.AddButton(new InlineKeyboardButton("⬅️ Назад", "about"));
             reply_markup = JsonConvert.SerializeObject(keyboard);
             return "Изменение заказа";
         }
