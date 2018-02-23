@@ -19,7 +19,7 @@ namespace telegramBod.Controllers
             bool con = l.IsUserInRole(User.Identity.Name, "User");
             if (!con)
                 return RedirectToAction("Index", "Home");
-            using (botEntities1 db = new botEntities1())
+            using (botEntities2 db = new botEntities2())
             {
                 
                 string u = User.Identity.Name;
@@ -36,10 +36,15 @@ namespace telegramBod.Controllers
         {
            
             string token;
-            using (botEntities1 bot = new botEntities1())
+            using (botEntities2 bot = new botEntities2())
                 token = bot.Token.Where(x => x.Id == 6).First().token1;
             SetWebHook(token, 6);
             return "Установли";
+        }
+        public string Subscribe2()
+        {
+            SetWebHook();
+            return "ух";
         }
         static string SetWebHook(string token, int i)
         {
@@ -49,6 +54,18 @@ namespace telegramBod.Controllers
             NameValueCollection nvc = new NameValueCollection();
             WebClient client = new WebClient();
             string addresTo = @"https://botshop.azurewebsites.net/api/message/update/" + i;
+            nvc.Add("url", addresTo);
+            client.UploadValues(adress, nvc);
+            return addresTo;
+        }
+        static string SetWebHook()
+        {
+            string token = "523345948:AAFptjJ0J17eBQynKKmNPp9Jbhvb3y8UA8A";
+            string BaseUrl = "https://api.telegram.org/bot";
+            string adress = BaseUrl + token + "/setWebhook";
+            NameValueCollection nvc = new NameValueCollection();
+            WebClient client = new WebClient();
+            string addresTo = @"https://botshop.azurewebsites.net/api/register/update/";
             nvc.Add("url", addresTo);
             client.UploadValues(adress, nvc);
             return addresTo;

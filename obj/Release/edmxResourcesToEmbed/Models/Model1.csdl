@@ -10,15 +10,15 @@
     <NavigationProperty Name="Token" Relationship="Self.FK__Category__TokenI__03F0984C" FromRole="Category" ToRole="Token" />
     <NavigationProperty Name="Product" Relationship="Self.FK__Product__Categor__06CD04F7" FromRole="Category" ToRole="Product" />
   </EntityType>
-  <EntityType Name="Contact">
+  <EntityType Name="Form">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Names" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Mesage" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Names" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Titles" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mesages" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -30,6 +30,7 @@
     <Property Name="ProductPrice" Type="Int32" Nullable="false" />
     <Property Name="ProductPhoto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="CategoryId" Type="Int32" />
+    <Property Name="Counts" Type="Int32" />
     <NavigationProperty Name="Category" Relationship="Self.FK__Product__Categor__06CD04F7" FromRole="Product" ToRole="Category" />
   </EntityType>
   <EntityType Name="Recycle">
@@ -58,6 +59,15 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
+  <EntityType Name="TelegramUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__TelegramU__UserI__10566F31" FromRole="TelegramUser" ToRole="Users" />
+  </EntityType>
   <EntityType Name="Token">
     <Key>
       <PropertyRef Name="Id" />
@@ -78,6 +88,7 @@
     <Property Name="Passwords" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="RoleId" Type="Int32" />
     <NavigationProperty Name="Roles" Relationship="Self.FK__Users__RoleId__7E37BEF6" FromRole="Users" ToRole="Roles" />
+    <NavigationProperty Name="TelegramUser" Relationship="Self.FK__TelegramU__UserI__10566F31" FromRole="Users" ToRole="TelegramUser" />
     <NavigationProperty Name="Token" Relationship="Self.FK__Token__UserID__01142BA1" FromRole="Users" ToRole="Token" />
   </EntityType>
   <Association Name="FK__Category__TokenI__03F0984C">
@@ -128,6 +139,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__TelegramU__UserI__10566F31">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="TelegramUser" Type="Self.TelegramUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TelegramUser">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Token__UserID__01142BA1">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Token" Type="Self.Token" Multiplicity="*" />
@@ -140,13 +163,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="botEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="botEntities2" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Category" EntityType="Self.Category" />
-    <EntitySet Name="Contact" EntityType="Self.Contact" />
+    <EntitySet Name="Form" EntityType="Self.Form" />
     <EntitySet Name="Product" EntityType="Self.Product" />
     <EntitySet Name="Recycle" EntityType="Self.Recycle" />
     <EntitySet Name="Roles" EntityType="Self.Roles" />
     <EntitySet Name="Sub" EntityType="Self.Sub" />
+    <EntitySet Name="TelegramUser" EntityType="Self.TelegramUser" />
     <EntitySet Name="Token" EntityType="Self.Token" />
     <EntitySet Name="Users" EntityType="Self.Users" />
     <AssociationSet Name="FK__Category__TokenI__03F0984C" Association="Self.FK__Category__TokenI__03F0984C">
@@ -164,6 +188,10 @@
     <AssociationSet Name="FK__Users__RoleId__7E37BEF6" Association="Self.FK__Users__RoleId__7E37BEF6">
       <End Role="Roles" EntitySet="Roles" />
       <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TelegramU__UserI__10566F31" Association="Self.FK__TelegramU__UserI__10566F31">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="TelegramUser" EntitySet="TelegramUser" />
     </AssociationSet>
     <AssociationSet Name="FK__Token__UserID__01142BA1" Association="Self.FK__Token__UserID__01142BA1">
       <End Role="Users" EntitySet="Users" />

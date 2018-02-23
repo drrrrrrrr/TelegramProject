@@ -12,16 +12,12 @@ namespace telegramBod.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class TelegramUser
     {
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
-        public string ProductDescription { get; set; }
-        public int ProductPrice { get; set; }
-        public string ProductPhoto { get; set; }
-        public Nullable<int> CategoryId { get; set; }
-        public Nullable<int> Counts { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public int UserId { get; set; }
     
-        public virtual Category Category { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

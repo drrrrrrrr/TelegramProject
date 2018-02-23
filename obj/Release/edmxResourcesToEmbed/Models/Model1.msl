@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Хранилище botModelContainer" CdmEntityContainer="botEntities1">
+  <EntityContainerMapping StorageEntityContainer="Хранилище botModelContainer" CdmEntityContainer="botEntities2">
     <EntitySetMapping Name="Category">
       <EntityTypeMapping TypeName="botModel.Category">
         <MappingFragment StoreEntitySet="Category">
@@ -10,14 +10,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Contact">
-      <EntityTypeMapping TypeName="botModel.Contact">
-        <MappingFragment StoreEntitySet="Contact">
+    <EntitySetMapping Name="Form">
+      <EntityTypeMapping TypeName="botModel.Form">
+        <MappingFragment StoreEntitySet="Form">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Names" ColumnName="Names" />
           <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="Mesage" ColumnName="Mesage" />
+          <ScalarProperty Name="Titles" ColumnName="Titles" />
+          <ScalarProperty Name="Mesages" ColumnName="Mesages" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -30,6 +30,7 @@
           <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
           <ScalarProperty Name="ProductPhoto" ColumnName="ProductPhoto" />
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Counts" ColumnName="Counts" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -57,6 +58,15 @@
         <MappingFragment StoreEntitySet="Sub">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TelegramUser">
+      <EntityTypeMapping TypeName="botModel.TelegramUser">
+        <MappingFragment StoreEntitySet="TelegramUser">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -8,15 +8,15 @@
     <Property Name="NameCategory" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="TokenId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="Contact">
+  <EntityType Name="Form">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Names" Type="nvarchar" MaxLength="250" />
-    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="Title" Type="nvarchar" MaxLength="250" />
-    <Property Name="Mesage" Type="nvarchar" MaxLength="250" />
+    <Property Name="Names" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Titles" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Mesages" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -28,6 +28,7 @@
     <Property Name="ProductPrice" Type="int" Nullable="false" />
     <Property Name="ProductPhoto" Type="nvarchar" MaxLength="250" />
     <Property Name="CategoryId" Type="int" />
+    <Property Name="Counts" Type="int" />
   </EntityType>
   <EntityType Name="Recycle">
     <Key>
@@ -52,6 +53,14 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TelegramUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Token">
     <Key>
@@ -106,6 +115,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__TelegramU__UserI__10566F31">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="TelegramUser" Type="Self.TelegramUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TelegramUser">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Token__UserID__01142BA1">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Token" Type="Self.Token" Multiplicity="*" />
@@ -132,11 +153,12 @@
   </Association>
   <EntityContainer Name="Хранилище botModelContainer">
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Recycle" EntityType="Self.Recycle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sub" EntityType="Self.Sub" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TelegramUser" EntityType="Self.TelegramUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Token" EntityType="Self.Token" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Category__TokenI__03F0984C" Association="Self.FK__Category__TokenI__03F0984C">
@@ -150,6 +172,10 @@
     <AssociationSet Name="FK__Recycle__TokenId__09A971A2" Association="Self.FK__Recycle__TokenId__09A971A2">
       <End Role="Token" EntitySet="Token" />
       <End Role="Recycle" EntitySet="Recycle" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TelegramU__UserI__10566F31" Association="Self.FK__TelegramU__UserI__10566F31">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="TelegramUser" EntitySet="TelegramUser" />
     </AssociationSet>
     <AssociationSet Name="FK__Token__UserID__01142BA1" Association="Self.FK__Token__UserID__01142BA1">
       <End Role="Users" EntitySet="Users" />

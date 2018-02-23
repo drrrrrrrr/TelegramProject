@@ -36,7 +36,7 @@ namespace telegramBod.Controllers
             {
                 // поиск пользователя в бд
                 Users user = null;
-                using (botEntities1 db = new botEntities1())
+                using (botEntities2 db = new botEntities2())
                 {
                     user = db.Users.FirstOrDefault(u => u.Email == model.Name && u.Passwords == model.Password);
                     string a;
@@ -75,14 +75,14 @@ namespace telegramBod.Controllers
             {
                 int count;
                 Users user = null;
-                using (botEntities1 db = new botEntities1())
+                using (botEntities2 db = new botEntities2())
                 {
                     user = db.Users.FirstOrDefault(u => u.Email == model.Name);
                 }
                 if (user == null)
                 {
                     // создаем нового пользователя
-                    using (botEntities1 db = new botEntities1())
+                    using (botEntities2 db = new botEntities2())
                     {
                         count = db.Users.Count() + 1;
                         db.Users.Add(new Users { Email = model.Name, Passwords = model.Password, RoleId = 1, Id = count });

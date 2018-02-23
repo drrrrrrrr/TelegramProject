@@ -123,7 +123,7 @@ namespace telegramBod.Controllers
         string ReceiveToken(Update update, int? id)
         {
             string token;
-            using (botEntities1 bot = new botEntities1())
+            using (botEntities2 bot = new botEntities2())
                 token = bot.Token.Where(x => x.Id == id).First().token1;
             return token;
         }
@@ -131,7 +131,6 @@ namespace telegramBod.Controllers
         {
             string token = ReceiveToken(update, id);
             string BaseUrl = "https://api.telegram.org/bot";
-
             string adress = BaseUrl + token + "/editMessageText";
             NameValueCollection nvc = new NameValueCollection();
             nvc.Add("chat_id", update.callback_query.message.chat.id.ToString());
@@ -143,6 +142,7 @@ namespace telegramBod.Controllers
             using (WebClient client = new WebClient())
                 client.UploadValues(adress, nvc);
         }
+        
 
         void AnswerIsQuery(Update update, int? id)
         {
@@ -262,7 +262,7 @@ namespace telegramBod.Controllers
             List<Category> cat = null;
             List<Product> p = null;
             // SendMessage(update.callback_query.from.id, category , ReceiveToken(update, id));
-            using (botEntities1 bd = new botEntities1())
+            using (botEntities2 bd = new botEntities2())
             {
                 try
                 {
@@ -298,7 +298,7 @@ namespace telegramBod.Controllers
             List<Category> list;
             string token = "";
             int i = 0;
-            using (botEntities1 bd = new botEntities1())
+            using (botEntities2 bd = new botEntities2())
             {
                 list = bd.Category.Where(x => x.Token.Id == id).ToList();
                 token = ReceiveToken(update, id);
@@ -367,14 +367,14 @@ namespace telegramBod.Controllers
             else
                 this.username = update.callback_query.from.id.ToString();
             TokenIds = (int)id;
-            using (botEntities1 bd = new botEntities1())
+            using (botEntities2 bd = new botEntities2())
             {
                 Count = bd.Recycle.Where(x => x.UserName == username).Where(x => x.TokenId == TokenIds).ToList().Count;
             }
         }
         public void DeleteElement(string category, string product)
         {
-            using (botEntities1 bd = new botEntities1())
+            using (botEntities2 bd = new botEntities2())
             {
                 bd.Recycle.Remove(bd.Recycle.Where(x => x.NameProduct == product).Where(x => x.NameCategory == category).First());
                 bd.SaveChanges();
@@ -386,7 +386,7 @@ namespace telegramBod.Controllers
             List<Recycle> p;
             List<Product> m = new List<Product>();
             string[] ar;
-            using (botEntities1 bd = new botEntities1())
+            using (botEntities2 bd = new botEntities2())
             {
                 p = bd.Recycle.Where(x => x.TokenId == TokenIds).Where(x => x.UserName == username).ToList();
                 ar = new string[p.Count];
@@ -423,7 +423,7 @@ namespace telegramBod.Controllers
         }
         public void AddBuy(string NameCategorys, string NameProducts)
         {
-            using (botEntities1 bd = new botEntities1())
+            using (botEntities2 bd = new botEntities2())
             {
 
                 bd.Recycle.Add(new Recycle()
@@ -442,7 +442,7 @@ namespace telegramBod.Controllers
             List<Recycle> p;
             int count = 0;
             List<Product> m = new List<Product>();
-            using (botEntities1 bd = new botEntities1())
+            using (botEntities2 bd = new botEntities2())
             {
                 p = bd.Recycle.Where(x => x.TokenId == TokenIds).Where(x => x.UserName == username).ToList();
                 for (int i = 0; i < p.Count; i++)

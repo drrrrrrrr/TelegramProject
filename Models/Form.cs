@@ -12,12 +12,12 @@ namespace telegramBod.Models
     using System;
     using System.Collections.Generic;
     
-    //public partial class Contact
-    //{
-    //    public int Id { get; set; }
-    //    public string Names { get; set; }
-    //    public string Email { get; set; }
-    //    public string Title { get; set; }
-    //    public string Mesage { get; set; }
-    //}
+    public partial class Form
+    {
+        public int Id { get; set; }
+        public string Names { get; set; }
+        public string Email { get; set; }
+        public string Titles { get; set; }
+        public string Mesages { get; set; }
+    }
 }
