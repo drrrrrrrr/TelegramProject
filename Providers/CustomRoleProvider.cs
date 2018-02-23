@@ -61,8 +61,16 @@ namespace telegramBod.Providers
         {
             using (botEntities2 db = new botEntities2())
             {
+                Users user;
                 // Получаем пользователя
-                Users user = db.Users.FirstOrDefault(u => u.Email == username);
+                try
+                {
+                  user = db.Users.FirstOrDefault(u => u.Email == username);
+                }
+                catch
+                {
+                    user = null;
+                }
 
                 if (user != null && user.Roles != null && user.Roles.Names == roleName)
                     return true;

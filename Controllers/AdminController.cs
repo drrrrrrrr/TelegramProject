@@ -10,6 +10,7 @@ using telegramBod.Providers;
 
 namespace telegramBod.Controllers
 {
+   
     public class AdminController : Controller
     {
         // GET: Admin
@@ -34,12 +35,12 @@ namespace telegramBod.Controllers
         }
         public ActionResult ShowShop()
         {
+            List<Parser> parse = new List<Parser>();
             CustomRoleProvider l = new CustomRoleProvider();
             bool con = l.IsUserInRole(User.Identity.Name, "User");
             if (!con)
                 return RedirectToAction("Index", "Home");
-            List<List<Category>> y = new List<List<Category>>();
-            List<List<Product>> product = new List<List<Product>>();
+
             using (botEntities2 bd = new botEntities2())
             {
                 string u = User.Identity.Name;
@@ -49,17 +50,23 @@ namespace telegramBod.Controllers
                 
                 foreach (Token m in k)
                 {
-                    y.Add(m.Category.ToList());
-
-                    for (int i = 0; i < y.Count; i++)
+                    List<Category> list = m.Category.ToList();
+                    for (int i = 0; i < list.Count; i++)
                     {
-                        product.Add(m.Category.ToList()[i].Product.ToList());
+                        Parser px = new Parser(list[i]);
+                        px.p = list[i].Product.ToList();
+                        parse.Add(px);
                     }
-                    
+                
                 }
+               
             }
-            ViewBag.Products = product;
-            return View(y);
+            return View(parse);
+        }
+        [HttpPost]
+        public ActionResult ShowShop(string name)
+        {
+            return RedirectToAction("ShowShop", "Admin");
         }
         public ActionResult ShowOrder()
         {
@@ -80,10 +87,10 @@ namespace telegramBod.Controllers
                 {
                   
                     List<Recycle> rec = bd.Recycle.Where(x => x.Token.Id == m.Id).ToList();
-                        for (int i = 0; i < rec.Count; i++)
-                        {
+                    for (int i = 0; i < rec.Count; i++)
+                    {
                             
-                        }
+                    }
                 }
                 
             }

@@ -1,34 +1,94 @@
-﻿@model IEnumerable<IEnumerable<telegramBod.Models.Category>>
+﻿@model List<telegramBod.Models.Parser>
 
 @{
-    ViewBag.Title = "ShowShop";
+    Layout = "~/Views/Shared/_Main.cshtml";
 }
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <section class="widget">
+            <header>
+                <h4>
+                    <i class="fa fa-list-ol"></i>
+                    Ваш магазин
+                </h4>
+            </header>
+            @{int l = 0; }
+            <div class="body">
+                <table class="table table-striped table-images">
+                    <thead>
+                        <tr>
+                            <th class="hidden-xs-portrait">#</th>
+                            <th>Picture</th>
+                            <th>Категории</th>
+                            <th class="hidden-xs-portrait">Продукт</th>
+                            <th class="hidden-xs">Цена</th>
+                            <th class="hidden-xs">Описание</th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-<h2>ShowShop</h2>
+                    <tbody>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+                        @{int k = 0;}
+                        @for (int i = 0; i < Model.Count(); i++)
+                        {
+                            for (int j = 0; j < Model[i].p.Count(); j++)
+                            {
+                                { k++; }
+                         <tr>
+                        <td class="hidden-xs-portrait">@k</td>
+                        <td>
+                            <img src="@Model[i].p[j].ProductPhoto" alt="">
+                        </td>
+                        <td>
+                            @Model[i].cat.NameCategory
+                        </td>
+                        <td class="hidden-xs-portrait">
+                            <p>
+                                <small>
+                                    <strong>@Model[i].p[j].ProductName</strong>
+                                </small>
+                            </p>
+                            <p>
+                                <small>
+                                    <strong> @Model[i].p[j].Counts</strong>
 
-@foreach (var k in Model)
-{
-    
-    foreach (var m in k)
-    {
-        <tr>
-            <td>
-                @m.NameCategory
-               
-            </td>
-                
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = m.CategoryId }) |
-                @Html.ActionLink("Details", "Details", new { id = m.CategoryId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = m.CategoryId })
-            </td>
-        </tr>
-    }
+                                </small>
+                            </p>
+                        </td>
+                        <td class="hidden-xs">
+                            @Model[i].p[j].ProductPrice
+                        </td>
+                        <td>
+                            <form >
+                                <input type="text" class="hidden" name="@Model[i].cat.NameCategory @Model[i].p[j].ProductName"/>
+                                <input value="Удалить" class="btn btn-sm btn-primary" type="submit" name="@Model[i].cat.NameCategory @Model[i].p[j].ProductName" />
+                             </form>
+                        </td>
+
+                    </tr>
+
 }
+}
+                    </tbody>
 
-</table>
+                </table>
+                @*<div class="clearfix">
+                <div class="pull-right">
+                    <button class="btn btn-default btn-sm">
+                        Send to ...
+                    </button>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-inverse dropdown-toggle" data-toggle="dropdown">
+                            &nbsp; Clear &nbsp;
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>*@
+            </div>
+        </section>
+    </div>
+</div>

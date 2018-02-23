@@ -32,4 +32,31 @@ namespace telegramBod.Models
 
 
     }
+    public class ShowShop
+    {
+      public  List<List<Product>> p;
+      public  List<List<Category>> c;
+        public ShowShop(List<List<Product>> pp, List<List<Category>> zz)
+        {
+            p = pp;
+            c = zz;
+        }
+    }
+    public class Parser
+    {
+        public Category cat;
+       
+        public List<Product> p;
+        public Parser(Category _cat, List<Product> _p)
+        {
+            cat = _cat;
+            p = _p;
+            
+        }
+        public Parser(Category _cat)
+        {
+            cat = _cat;
+            p = new List<Product>();
+        }
+    }
 }
