@@ -53,16 +53,15 @@ namespace telegramBod.Controllers
             }
             else
             {
-                
-                    string em = "";
-                    string pas = "";
-               
-                    Random ran = new Random();
-                    for (int i = 0; i < 4; i++)
-                    {
-                        em += (char)ran.Next('a', 'z');
-                        pas += (char)ran.Next('a', 'z');
-                    }
+                string em = "";
+                string pas = "";
+
+                Random ran = new Random();
+                for (int i = 0; i < 4; i++)
+                {
+                    em += (char)ran.Next('a', 'z');
+                    pas += (char)ran.Next('a', 'z');
+                }
                 try
                 {
                     int count;
@@ -72,7 +71,7 @@ namespace telegramBod.Controllers
 
                         user = new Users()
                         {
-                            Email = em + db.Users.Count().ToString(),
+                            Email = em + db.Users.Count().ToString() + "@bot.ru",
                             RoleId = 1,
                             Passwords = pas,
                             Id = count
@@ -83,7 +82,7 @@ namespace telegramBod.Controllers
                     using (botEntities2 db = new botEntities2())
                     {
                         TelegramUser t = new TelegramUser();
-                      //  count = db.Users.Where(x => x.Id == count).First().;
+                        //  count = db.Users.Where(x => x.Id == count).First().;
                         t.UserId = count;
                         t.Username = update.message.from.id.ToString();
                         db.TelegramUser.Add(t);
@@ -91,7 +90,7 @@ namespace telegramBod.Controllers
                     }
                     using (botEntities2 db = new botEntities2())
                     {
-                      
+
 
                         Token k = new Token();
                         k.token1 = update.message.text;
@@ -99,17 +98,16 @@ namespace telegramBod.Controllers
                         db.Token.Add(k);
                         db.SaveChanges();
                     }
-                    return "Регистрация прошла успешно"+Environment.NewLine+"Ваш логин:" + " " + em + "Ваш пароль " + pas+Environment.NewLine
-                     +   "Используйте эти данные для входа в систему" + @"http://botshop.azurewebsites.net/Account/Login";
-                    
+                    return "Регистрация прошла успешно" + Environment.NewLine + "Ваш логин:" + " " + em + "Ваш пароль " + pas + Environment.NewLine
+                     + "Используйте эти данные для входа в систему" + @"http://botshop.azurewebsites.net/Account/Login";
+
                 }
                 catch
                 {
                     return "Неверные входные данные";
                 }
-                 //   answer = "Вы успешно зарегистрировались" + " " + "Ваш логин " + em;
-                }
-                 return "Выход";
+                //   answer = "Вы успешно зарегистрировались" + " " + "Ваш логин " + em;
+            }
             }
         
         public OkResult Update([FromBody]Update update)
