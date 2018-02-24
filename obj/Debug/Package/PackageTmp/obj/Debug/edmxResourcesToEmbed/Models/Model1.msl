@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище botModelContainer" CdmEntityContainer="botEntities2">
+    <EntitySetMapping Name="Category">
+      <EntityTypeMapping TypeName="botModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="NameCategory" ColumnName="NameCategory" />
+          <ScalarProperty Name="TokenId" ColumnName="TokenId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Form">
+      <EntityTypeMapping TypeName="botModel.Form">
+        <MappingFragment StoreEntitySet="Form">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Names" ColumnName="Names" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Titles" ColumnName="Titles" />
+          <ScalarProperty Name="Mesages" ColumnName="Mesages" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product">
+      <EntityTypeMapping TypeName="botModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="ProductPhoto" ColumnName="ProductPhoto" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Counts" ColumnName="Counts" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recycle">
+      <EntityTypeMapping TypeName="botModel.Recycle">
+        <MappingFragment StoreEntitySet="Recycle">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameCategory" ColumnName="NameCategory" />
+          <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="TokenId" ColumnName="TokenId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="botModel.Roles">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Names" ColumnName="Names" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sub">
+      <EntityTypeMapping TypeName="botModel.Sub">
+        <MappingFragment StoreEntitySet="Sub">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TelegramUser">
+      <EntityTypeMapping TypeName="botModel.TelegramUser">
+        <MappingFragment StoreEntitySet="TelegramUser">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Token">
+      <EntityTypeMapping TypeName="botModel.Token">
+        <MappingFragment StoreEntitySet="Token">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="token1" ColumnName="token" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="botModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Passwords" ColumnName="Passwords" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
