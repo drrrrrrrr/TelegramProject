@@ -63,3 +63,5 @@ C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.IO.FileSystem.
 C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.IO.Packaging.dll
 C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\OfficeOpenXml.Core.ExcelPackage.pdb
 C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\EPPlus.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\EPPlus.xml

@@ -8,6 +8,7 @@ using telegramBod.Models;
 using telegramBod.Providers;
 
 using System.IO;
+using OfficeOpenXml;
 
 namespace telegramBod.Controllers
 {
@@ -15,22 +16,22 @@ namespace telegramBod.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index()
-        {
-            CustomRoleProvider l = new CustomRoleProvider();
-            bool con = l.IsUserInRole(User.Identity.Name, "User");
-            if (!con)
-                return RedirectToAction("Index", "Home");
-            using (botEntities2 db = new botEntities2())
-            {
+        //public ActionResult Index()
+        //{
+        //    CustomRoleProvider l = new CustomRoleProvider();
+        //    bool con = l.IsUserInRole(User.Identity.Name, "User");
+        //    if (!con)
+        //        return RedirectToAction("Index", "Home");
+        //    using (botEntities2 db = new botEntities2())
+        //    {
                 
-                string u = User.Identity.Name;
-                Users user = db.Users.Where(x => x.Email == u).First();
+        //        string u = User.Identity.Name;
+        //        Users user = db.Users.Where(x => x.Email == u).First();
                
-            }
-            RedirectToAction("Admin", "ShowShop");
-                return View();
-        }
+        //    }
+        //    RedirectToAction("Admin", "ShowShop");
+        //        return View();
+        //}
         public ActionResult Andex()
         {
             return View();
@@ -116,15 +117,28 @@ namespace telegramBod.Controllers
         [HttpPost]
         public ActionResult ImportFromExcel(HttpPostedFileBase upload)
         {
+            Users user;
+            Token k;
+            using (botEntities2 bd = new botEntities2())
+            {
+                string u = User.Identity.Name;
+                user = bd.Users.Where(x => x.Email == u).First();
+                k = bd.Token.Where(x => x.UserID == user.Id).FirstOrDefault();
+            }
             if (upload != null)
             {
                 // получаем имя файла
                 string fileName = System.IO.Path.GetFileName(upload.FileName);
-               
+
                 // сохраняем файл в папку Files в проекте
-                //upload.SaveAs(Server.MapPath("~/Files/" + fileName));
+                upload.SaveAs(Server.MapPath("~/Files/" + fileName));
+                string o =ImportFile(user.Id,k.Id,fileName);
+                if(o=="ok")
+                {
+                    SetWebHook(k.token1, user.Id);
+                }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("ShowShop");
         }
         public ActionResult ToAll()
         {
@@ -168,43 +182,54 @@ namespace telegramBod.Controllers
             }
             return View();
         }
-        
-        //string ImportFile()
-        //{
-        //    var package = new ExcelPackage(new FileInfo(@"\\Mac\Home\Documents\ListProduct.xlsx"));
+        string ImportFile(int userId,int tokenID,string fileName)
+        {
+            var package = new ExcelPackage(new FileInfo(Server.MapPath("~/Files/" + fileName)));
 
-        //    ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
+            ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
 
 
-        //    for (int i = workSheet.Dimension.Start.Row + 2; i <= workSheet.End.Row; i++)
-        //    {
-        //        int j = workSheet.Dimension.Start.Column + 1;
+            for (int i = workSheet.Dimension.Start.Row + 2; i <= workSheet.Dimension.End.Row; i++)
+            {
+                int j = workSheet.Dimension.Start.Column + 1;
 
-        //        ImportElement ie = new ImportElement();
-        //        ie.Category = workSheet.Cells[i, j].Value.ToString();
-        //        ie.Name = workSheet.Cells[i, ++j].Value.ToString();
-        //        string s = workSheet.Cells[i, ++j].Value.ToString();
-        //        ie.Price = int.Parse(s);
-        //        ie.Description = workSheet.Cells[i, ++j].Value.ToString();
+                ImportElement ie = new ImportElement();
+                ie.Category = workSheet.Cells[i, j].Value.ToString();
+                ie.Name = workSheet.Cells[i, ++j].Value.ToString();
+                string s = workSheet.Cells[i, ++j].Value.ToString();
+                ie.Price = int.Parse(s);
+                ie.Description = workSheet.Cells[i, ++j].Value.ToString();
+                ie.Photo = workSheet.Cells[i, ++j].Value.ToString();
+                ie.Count = int.Parse(workSheet.Cells[i, ++j].Value.ToString());
 
-        //        using (botEntities2 db = new botEntities2())
-        //        {
-        //            Users user = db.Users.Where(x => x.Id == 19).First();
-        //            Category c = db.Category.Where(x => x.NameCategory == ie.Category).FirstOrDefault();
 
-        //            if (c == null)
-        //            {
-        //                c = new Category() { NameCategory = ie.Category, CategoryId = user.Id };
-        //                db.Category.Add(c);
-        //                db.SaveChanges();
-        //            }
+                using (botEntities2 db = new botEntities2())
+                {
+                    Users user = db.Users.Where(x => x.Id == userId).First();
+                    Category c = db.Category.Where(x => x.NameCategory == ie.Category).FirstOrDefault();
 
-        //            db.Product.Add(new Product() { Category = c, CategoryId = user.Id, ProductDescription = ie.Description, ProductName = ie.Name, ProductPrice = ie.Price });
-        //            db.SaveChanges();
-        //        }
-        //    }
-        //    return "";
-        //}
+                    if (c == null)
+                    {
+                        c = new Category() { NameCategory = ie.Category, CategoryId = user.Id,TokenId=tokenID};
+                        db.Category.Add(c);
+                        db.SaveChanges();
+                    }
+
+                    db.Product.Add(new Product() { Category = c, CategoryId = user.Id, ProductDescription = ie.Description, ProductName = ie.Name, ProductPrice = ie.Price,ProductPhoto=ie.Photo,Counts=ie.Count});
+                    db.SaveChanges();
+                }
+            }
+            return "";
+        }
+        public class ImportElement
+        {
+            public string Category { get; set; }
+            public string Name { get; set; }
+            public int Price { get; set; }
+            public string Description { get; set; }
+            public string Photo { get; set; }
+            public int Count { get; set; }
+        }
         public string Subscribe()
         {
            

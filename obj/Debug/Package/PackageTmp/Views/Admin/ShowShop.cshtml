@@ -34,16 +34,27 @@
 
                     <tbody>
 
-                        @{int k = 0;}
+                        @*@{int k = 0;}*@
                         @for (int i = 0; i < Model.Count(); i++)
                         {
                             for (int j = 0; j < Model[i].p.Count(); j++)
                             {
-                                { k++; }
+                                //{ k++; }
                                 <tr>
-                                    <td class="hidden-xs-portrait">@k</td>
+                                    <td class="hidden-xs-portrait"></td>
                                     <td>
-                                        <img src="@Model[i].p[j].ProductPhoto" alt="">
+                                       
+                                        @if (Model[i].p[j].ProductPhoto == null)
+                                        { 
+                                            <img src="sdfs" alt="">
+
+                                        }
+                                        else
+                                        {
+                                            
+                                            <img src = "@Model[i].p[j].ProductPhoto.Remove(Model[i].p[j].ProductPhoto.Length-7).Remove(0,9)" alt = "" >
+                                        }
+
                                     </td>
                                     <td>
                                         @Model[i].cat.NameCategory

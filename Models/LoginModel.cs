@@ -51,7 +51,6 @@ namespace telegramBod.Models
         {
             cat = _cat;
             p = _p;
-            
         }
         public Parser(Category _cat)
         {

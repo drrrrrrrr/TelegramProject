@@ -29,7 +29,7 @@ namespace telegramBod.Controllers
                 CustomRoleProvider l = new CustomRoleProvider();
                 bool con = l.IsUserInRole(User.Identity.Name, "User");
                 if (con)
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("ShowShop", "Admin");
                 else return RedirectToAction("Andex", "Admin"); 
             }
             if (ModelState.IsValid)
@@ -48,7 +48,7 @@ namespace telegramBod.Controllers
                     
                     if(a=="User")
                     {
-                        return RedirectToAction("Index", "Admin");
+                        return RedirectToAction("ShowShop", "Admin");
                     }
                     else
                     {
@@ -62,6 +62,10 @@ namespace telegramBod.Controllers
             }
 
             return View(model);
+        }
+        public ActionResult Register()
+        {
+            return Redirect("https://t.me/createBotShopBot");
         }
 
         //public ActionResult Register()

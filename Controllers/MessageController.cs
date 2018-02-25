@@ -287,7 +287,9 @@ namespace telegramBod.Controllers
             }
             AddRecycle(keyboard, category, nameProduct, update, id);
             Product chooseProduct = p.Where(x => x.ProductName == nameProduct).First();
-            answer = "Стоимость товара "+ chooseProduct.ProductPrice+"руб" + Environment.NewLine + "Описание" + " " + chooseProduct.ProductDescription;
+            if (chooseProduct.ProductPhoto == null)
+                chooseProduct.ProductPhoto = "";
+            answer = "Стоимость товара "+ chooseProduct.ProductPrice+"руб" + Environment.NewLine + "Описание" + " " + chooseProduct.ProductDescription +chooseProduct.ProductPhoto;
             keyboard.AddButton(new InlineKeyboardButton("⬅️ Назад", "about"));
             AddMainButtons(keyboard, update, id);
             reply_markup = JsonConvert.SerializeObject(keyboard);

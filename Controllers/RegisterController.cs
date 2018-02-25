@@ -68,10 +68,10 @@ namespace telegramBod.Controllers
                     using (botEntities2 db = new botEntities2())
                     {
                         count = db.Users.Count() + 1;
-
+                        em += db.Users.Count().ToString() + "@bot.ru";
                         user = new Users()
                         {
-                            Email = em + db.Users.Count().ToString() + "@bot.ru",
+                            Email = em,
                             RoleId = 1,
                             Passwords = pas,
                             Id = count
@@ -98,7 +98,7 @@ namespace telegramBod.Controllers
                         db.Token.Add(k);
                         db.SaveChanges();
                     }
-                    return "Регистрация прошла успешно" + Environment.NewLine + "Ваш логин:" + " " + em + "Ваш пароль " + pas + Environment.NewLine
+                    return "Регистрация прошла успешно" + Environment.NewLine + "  Ваш логин:" + " " + em + "Ваш пароль " + pas + Environment.NewLine
                      + "Используйте эти данные для входа в систему" + @"http://botshop.azurewebsites.net/Account/Login";
 
                 }
@@ -172,7 +172,7 @@ namespace telegramBod.Controllers
                     }
                     else
                     {
-                        return "Вы еще не зареистрированы";
+                        return "Вы еще не зарегистрированы";
                     }
 
                 }

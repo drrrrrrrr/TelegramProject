@@ -58,3 +58,10 @@ C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\ru\System.Web.WebPage
 C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\ru\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\ru\System.Web.WebPages.Razor.resources.dll
 C:\Users\Дима\source\repos\telegramBod\telegramBod\obj\Release\telegramBod.csprojResolveAssemblyReference.cache
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\OfficeOpenXml.Core.ExcelPackage.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.IO.FileSystem.Primitives.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.IO.Packaging.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\OfficeOpenXml.Core.ExcelPackage.pdb
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\EPPlus.dll
+C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\EPPlus.xml
