@@ -18,10 +18,10 @@ namespace telegramBod.Controllers
     {
 
         public ActionResult Index()
-        {
-          
+        { 
             return View();
         }
+
         
     }
 }

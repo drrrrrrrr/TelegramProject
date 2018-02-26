@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
 using telegramBod.Models;
@@ -112,15 +111,13 @@ namespace telegramBod.Controllers
         
         public OkResult Update([FromBody]Update update)
         {
-            //{
-            //    SendPhotoIputFile(update, id, "asda", "");
-         
                 if (update.message != null)
                 {
                     if (update.message.text != null)
                     {
                         
-                        SendAnswer(update,"Выбирете пункт меню");
+                        
+                        SendAnswer(update,update.message.text);
                         return Ok();
                     }
                 }
@@ -140,6 +137,7 @@ namespace telegramBod.Controllers
             string[] _data = update.callback_query.data.Split(' ');
             switch (_data[0])
             {
+      
                 case "reg":
                     answer = "Введите токен";
                    // MainMenu(update, id, out reply_markup);
@@ -149,7 +147,17 @@ namespace telegramBod.Controllers
                     MainMenu(update,  out reply_markup);
                     break;
                 case "about":
-                    answer = "Нужно сделатть то-то то-то то-то";
+                    answer = "Здравствуй! Ты уже совсем близок к созданию своего Telegram-магазина!" +
+                       Environment.NewLine +
+                                         "Следуй инструкциям и достигнешь цели! " +
+                                          Environment.NewLine +
+                                           "1 .Перейди в @BotFather и напиши /newbot " +
+                                            Environment.NewLine +
+                                           " 2.Придумай название для своего магазина " +
+                                            Environment.NewLine +
+                                           " Например: FruitShop_Bot или FruitShopBot " +
+                                            Environment.NewLine +
+                                           " 3.Появившийся токен скопируй и отправь нашему боту ";
                     MainMenu(update, out reply_markup);
                     break;
             }
@@ -215,8 +223,19 @@ namespace telegramBod.Controllers
             }
             switch (message.ToLower())
             {
-                case "/start":
-                    answer = MainMenu(update, out reply_markup);
+                    case "/start":
+                    answer = "Здравствуй! Ты уже совсем близок к созданию своего Telegram-магазина!" +
+                        Environment.NewLine+
+                                          "Следуй инструкциям и достигнешь цели! " +
+                                           Environment.NewLine +
+                                            "1 .Перейди в @BotFather и напиши /newbot " +
+                                             Environment.NewLine +
+                                            " 2.Придумай название для своего магазина " +
+                                             Environment.NewLine +
+                                            " Например: FruitShop_Bot или FruitShopBot " +
+                                             Environment.NewLine +
+                                            " 3.Появившийся токен скопируй и отправь нашему боту ";
+                    MainMenu(update, out reply_markup);
                     break;
 
                 default:

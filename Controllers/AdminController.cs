@@ -9,31 +9,19 @@ using telegramBod.Providers;
 
 using System.IO;
 using OfficeOpenXml;
+using System;
 
 namespace telegramBod.Controllers
 {
 
     public class AdminController : Controller
     {
-        // GET: Admin
-        //public ActionResult Index()
-        //{
-        //    CustomRoleProvider l = new CustomRoleProvider();
-        //    bool con = l.IsUserInRole(User.Identity.Name, "User");
-        //    if (!con)
-        //        return RedirectToAction("Index", "Home");
-        //    using (botEntities2 db = new botEntities2())
-        //    {
-                
-        //        string u = User.Identity.Name;
-        //        Users user = db.Users.Where(x => x.Email == u).First();
-               
-        //    }
-        //    RedirectToAction("Admin", "ShowShop");
-        //        return View();
-        //}
         public ActionResult Andex()
         {
+            CustomRoleProvider l = new CustomRoleProvider();
+            bool admin = l.IsUserInRole(User.Identity.Name, "Admin");
+            if(!admin)
+                return RedirectToAction("Index", "Home");
             return View();
         }
         public ActionResult ShowShop()
@@ -41,6 +29,9 @@ namespace telegramBod.Controllers
             List<Parser> parse = new List<Parser>();
             CustomRoleProvider l = new CustomRoleProvider();
             bool con = l.IsUserInRole(User.Identity.Name, "User");
+            bool admin = l.IsUserInRole(User.Identity.Name, "Admin");
+            if (admin)
+                return RedirectToAction("Andex", "Admin");
             if (!con)
                 return RedirectToAction("Index", "Home");
 
@@ -49,8 +40,6 @@ namespace telegramBod.Controllers
                 string u = User.Identity.Name;
                 Users user = bd.Users.Where(x => x.Email == u).First();
                 List<Token> k = bd.Token.Where(x => x.UserID == user.Id).ToList();
-                 
-                
                 foreach (Token m in k)
                 {
                     List<Category> list = m.Category.ToList();
@@ -74,17 +63,31 @@ namespace telegramBod.Controllers
             {
                 string u = User.Identity.Name;
                 Users user = bd.Users.Where(x => x.Email == u).First();
-                List<Token> k = bd.Token.Where(x => x.UserID == user.Id).ToList();
-                foreach (Token m in k)
+                Token m = bd.Token.Where(x => x.UserID == user.Id).First();
+                
+                Product p = bd.Product.Where(x => x.ProductName == namep).Where(x => x.Category.NameCategory == namecat).Where(x => x.Category.TokenId == m.Id).FirstOrDefault();
+                
+                if (p != null)
                 {
-                    Product p = bd.Product.Where(x => x.ProductName == namep).Where(x => x.Category.NameCategory == namecat).Where(x => x.Category.TokenId == m.Id).FirstOrDefault();
-                    if (p != null)
+                    if (p.Counts > 0)
+                    {
+                        p.Counts = p.Counts - 1;
+                        bd.SaveChanges();
+                    }
+                    if(p.Counts==0)
                     {
                         bd.Product.Remove(p);
                         bd.SaveChanges();
-                        return RedirectToAction("ShowShop", "Admin");
                     }
                 }
+                Category cat = bd.Category.Where(x => x.NameCategory == namecat).Where(x => x.TokenId == m.Id).First();
+                if (cat.Product.Count==0)
+                {
+                    bd.Category.Remove(cat);
+                    bd.SaveChanges();
+                    return RedirectToAction("ShowShop", "Admin");
+                }
+                
             }
                 return RedirectToAction("ShowShop", "Admin");
         }
@@ -110,6 +113,33 @@ namespace telegramBod.Controllers
             
             return View(res);
         }
+
+        [HttpPost]
+        public ActionResult DeleteFromRecycle(string namep,string namecat,string username)
+        {
+            try
+            {
+                CustomRoleProvider l = new CustomRoleProvider();
+                bool con = l.IsUserInRole(User.Identity.Name, "User");
+                if (!con)
+                    return RedirectToAction("Index", "Home");
+
+                using (botEntities2 bd = new botEntities2())
+                {
+                    string u = User.Identity.Name;
+                    Users user = bd.Users.Where(x => x.Email == u).First();
+                    Token m = bd.Token.Where(x => x.UserID == user.Id).First();
+                    Recycle res = bd.Recycle.Where(x => x.NameProduct == namep).Where(x => x.NameCategory == namecat).Where(x => x.TokenId == m.Id).Where(x => x.UserName == username).First();
+                    bd.Recycle.Remove(res);
+                    bd.SaveChanges();
+                }
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("ShowRecycle", "Admin");
+        }
         public ActionResult ImportFromExcel()
         {
             return View();
@@ -125,27 +155,30 @@ namespace telegramBod.Controllers
                 user = bd.Users.Where(x => x.Email == u).First();
                 k = bd.Token.Where(x => x.UserID == user.Id).FirstOrDefault();
             }
+            string o = "";
             if (upload != null)
             {
                 // получаем имя файла
                 string fileName = System.IO.Path.GetFileName(upload.FileName);
 
                 // сохраняем файл в папку Files в проекте
-                upload.SaveAs(Server.MapPath("~/Files/" + fileName));
-                string o =ImportFile(user.Id,k.Id,fileName);
-                if(o=="ok")
-                {
-                    SetWebHook(k.token1, user.Id);
-                }
-            }
-            return RedirectToAction("ShowShop");
-        }
-        public ActionResult ToAll()
-        {
-           
 
+                string path = Path.Combine(Server.MapPath("~/Images"), fileName);
+
+                upload.SaveAs(path);
+                o = ImportFile(user.Id, k.Id, fileName);
+
+            }
+                SetWebHook(k.token1,k.Id);
+                return View("ImportSucess");
+        }
+
+ 
+    public ActionResult ToAll()
+        {     
             return View();
         }
+       
         void SendMessage(string token,string message,string chat_id)
         {
             string BaseUrl = "https://api.telegram.org/bot";
@@ -180,46 +213,53 @@ namespace telegramBod.Controllers
                     }
                 }
             }
-            return View();
+            return View("ToAllSuccess");
         }
         string ImportFile(int userId,int tokenID,string fileName)
         {
-            var package = new ExcelPackage(new FileInfo(Server.MapPath("~/Files/" + fileName)));
-
-            ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
-
-
-            for (int i = workSheet.Dimension.Start.Row + 2; i <= workSheet.Dimension.End.Row; i++)
+            try
             {
-                int j = workSheet.Dimension.Start.Column + 1;
+                var package = new ExcelPackage(new FileInfo(Path.Combine(Server.MapPath("~/Images"), fileName)));
 
-                ImportElement ie = new ImportElement();
-                ie.Category = workSheet.Cells[i, j].Value.ToString();
-                ie.Name = workSheet.Cells[i, ++j].Value.ToString();
-                string s = workSheet.Cells[i, ++j].Value.ToString();
-                ie.Price = int.Parse(s);
-                ie.Description = workSheet.Cells[i, ++j].Value.ToString();
-                ie.Photo = workSheet.Cells[i, ++j].Value.ToString();
-                ie.Count = int.Parse(workSheet.Cells[i, ++j].Value.ToString());
+                ExcelWorksheet workSheet = package.Workbook.Worksheets[1];
 
 
-                using (botEntities2 db = new botEntities2())
+                for (int i = workSheet.Dimension.Start.Row + 2; i <= workSheet.Dimension.End.Row; i++)
                 {
-                    Users user = db.Users.Where(x => x.Id == userId).First();
-                    Category c = db.Category.Where(x => x.NameCategory == ie.Category).FirstOrDefault();
+                    int j = workSheet.Dimension.Start.Column + 1;
 
-                    if (c == null)
+                    ImportElement ie = new ImportElement();
+                    ie.Category = workSheet.Cells[i, j].Value.ToString();
+                    ie.Name = workSheet.Cells[i, ++j].Value.ToString();
+                    string s = workSheet.Cells[i, ++j].Value.ToString();
+                    ie.Price = int.Parse(s);
+                    ie.Description = workSheet.Cells[i, ++j].Value.ToString();
+                    ie.Photo = workSheet.Cells[i, ++j].Value.ToString();
+                    ie.Count = int.Parse(workSheet.Cells[i, ++j].Value.ToString());
+
+
+                    using (botEntities2 db = new botEntities2())
                     {
-                        c = new Category() { NameCategory = ie.Category, CategoryId = user.Id,TokenId=tokenID};
-                        db.Category.Add(c);
+                        Users user = db.Users.Where(x => x.Id == userId).First();
+                        Category c = db.Category.Where(x => x.NameCategory == ie.Category).FirstOrDefault();
+
+                        if (c == null)
+                        {
+                            c = new Category() { NameCategory = ie.Category, CategoryId = user.Id, TokenId = tokenID };
+                            db.Category.Add(c);
+                            db.SaveChanges();
+                        }
+
+                        db.Product.Add(new Product() { Category = c, CategoryId = user.Id, ProductDescription = ie.Description, ProductName = ie.Name, ProductPrice = ie.Price, ProductPhoto = ie.Photo, Counts = ie.Count });
                         db.SaveChanges();
                     }
-
-                    db.Product.Add(new Product() { Category = c, CategoryId = user.Id, ProductDescription = ie.Description, ProductName = ie.Name, ProductPrice = ie.Price,ProductPhoto=ie.Photo,Counts=ie.Count});
-                    db.SaveChanges();
                 }
             }
-            return "";
+            catch
+            {
+
+            }
+            return "ок";
         }
         public class ImportElement
         {

@@ -68,8 +68,16 @@ namespace telegramBod.Controllers
 
         void SendMessageToAdmin(Update update,int? id)
         {
-            long chat_id = 378999844;
-            string message = update.message.contact.first_name + "   " + update.message.contact.user_id + "  " + update.message.contact.phone_number ;
+            string chat_id = "";
+            string token = ReceiveToken(update, id);
+            int? u;
+            using (botEntities2 bd = new botEntities2())
+            {
+                u = bd.Token.Where(x => x.token1 == token).FirstOrDefault().UserID;
+                chat_id = bd.TelegramUser.Where(x => x.UserId == u).FirstOrDefault().Username;
+            }
+            string message ="Пользователь "+  update.message.contact.first_name + " сделал заказ  " + 
+                "его контактные данные "+ update.message.contact.user_id + "его телефон " + update.message.contact.phone_number ;
             string BaseUrl = "https://api.telegram.org/bot";
             string address = BaseUrl + ReceiveToken(update,id) + "/sendMessage";
             NameValueCollection nvc = new NameValueCollection();
@@ -94,7 +102,7 @@ namespace telegramBod.Controllers
                     break;
             
                 default:
-                    answer = "Выберете пункт из меню";
+                    answer = "Добро пожаловать в наш магазин. Выберете пункт из меню!";
                     MainMenu(update, id, out reply_markup);
                     break;
              }
@@ -142,7 +150,6 @@ namespace telegramBod.Controllers
             using (WebClient client = new WebClient())
                 client.UploadValues(adress, nvc);
         }
-        
 
         void AnswerIsQuery(Update update, int? id)
         {
@@ -152,11 +159,11 @@ namespace telegramBod.Controllers
             switch (_data[0])
             {
                 case "?":
-                    answer = "Вопрос!";
+                    answer = "По вопросом обращайтесь к нашему менеджеру ";
                     MainMenu(update, id, out reply_markup);
                     break;
                 case "about":
-                    answer = "Что-нибудь можно написать";
+                    answer = "Добро пожаловать в наш магазин!";
                     MainMenu(update, id, out reply_markup);
                     break;
                 case "корзина":
@@ -320,12 +327,19 @@ namespace telegramBod.Controllers
         }
       public   async Task<HttpResponseMessage> SendPhotoIputFile(Update update, int? id, string answer, string replyMarkup)
         {
-            long from = 378999844;
+            string from = "";
+            string token = ReceiveToken(update, id);
+            int? u;
+            using (botEntities2 bd = new botEntities2())
+            {
+               u = bd.Token.Where(x => x.token1 == token).FirstOrDefault().UserID;
+               from = bd.TelegramUser.Where(x => x.UserId == u).FirstOrDefault().Username;
+            }
             string pathToPhoto = HostingEnvironment.MapPath("~/Images/01.jpg");
             string BaseUrl = "https://api.telegram.org/bot";
             using (MultipartFormDataContent form = new MultipartFormDataContent())
             {
-                string url = BaseUrl + "529156147:AAF1nyFwPKMw606JZhlFUrm9MUbaNizQ3rc" + "/sendPhoto";
+                string url = BaseUrl + ReceiveToken(update,id) + "/sendPhoto";
                 string fileName = pathToPhoto.Split('\\').Last();
                 if(replyMarkup!="")
                 form.Add(new StringContent(replyMarkup, Encoding.UTF8), "reply_markup");
@@ -411,12 +425,21 @@ namespace telegramBod.Controllers
 
             if (m.Count == 0) return "Выберете пункт меню";
             InlineKeyboard keyboard = new InlineKeyboard();
-
+            int o = 0;
             for (int i = 0; i < p.Count; i++)
             {
-                keyboard.AddButton(new InlineKeyboardButton("Удалить " + m[i].ProductName + "(" + ar[i] + ")" + " цена   " + m[i].ProductPrice +
-                    "     1 шт", "корзина удалить " + ar[i] + " " + m[i].ProductName));
+                try
+                {
+                    o++;
+                    keyboard.AddButton(new InlineKeyboardButton("Удалить " + m[i].ProductName + "(" + ar[i] + ")" + " цена   " + m[i].ProductPrice +
+                        "     1 шт", "корзина удалить " + ar[i] + " " + m[i].ProductName));
+                }
+                catch
+                {
+
+                }
             }
+            this.Count = o;
 
             keyboard.AddButton(new InlineKeyboardButton("Оформить", "корзина оформить"));
             keyboard.AddButton(new InlineKeyboardButton("⬅️ Назад", "about"));

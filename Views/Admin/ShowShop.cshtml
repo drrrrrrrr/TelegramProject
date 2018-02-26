@@ -43,16 +43,22 @@
                                 <tr>
                                     <td class="hidden-xs-portrait"></td>
                                     <td>
-                                       
+
                                         @if (Model[i].p[j].ProductPhoto == null)
-                                        { 
-                                            <img src="sdfs" alt="">
+                                        {
+                                        <img src="" alt="">
 
                                         }
                                         else
                                         {
-                                            
-                                            <img src = "@Model[i].p[j].ProductPhoto.Remove(Model[i].p[j].ProductPhoto.Length-7).Remove(0,9)" alt = "" >
+                                        try
+                                        {
+                                            <img src="@Model[i].p[j].ProductPhoto.Remove(Model[i].p[j].ProductPhoto.Length - 7).Remove(0, 9)" alt="">
+                                        }
+                                        catch
+                                        {
+                                             <img src="" alt=""> 
+                                        }
                                         }
 
                                     </td>

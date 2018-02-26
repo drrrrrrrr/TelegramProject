@@ -57,8 +57,7 @@
 
                             </td>
                             <td>
-                                <form action="/Admin/ShowRecycle?namep=@Model[i][j].NameProduct&namecat=@Model[i][j].NameCategory" method="post">
-                                    <input value="Написать" class="btn btn-sm btn-danger" type="submit" />
+                                <form action="/Admin/DeleteFromRecycle?namep=@Model[i][j].NameProduct&namecat=@Model[i][j].NameCategory&username=@Model[i][j].UserName" method="post">
                                     <input value="Удалить" class="btn btn-sm btn-primary" type="submit" />
                                 </form>
                             </td>
