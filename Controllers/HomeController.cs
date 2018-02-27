@@ -30,7 +30,7 @@ namespace telegramBod.Controllers
             else
             {
                 //beginform
-                using (botEntities2 bd = new botEntities2())
+                using (botEntities3 bd = new botEntities3())
                 {
                     Form form = new Form()
                     {
@@ -55,7 +55,7 @@ namespace telegramBod.Controllers
             else
             {
                 //beginform
-                using (botEntities2 bd = new botEntities2())
+                using (botEntities3 bd = new botEntities3())
                 {
                     Sub c = new Sub() { Email = contact.Email };
                     bd.Sub.Add(c);

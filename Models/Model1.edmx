@@ -23,6 +23,17 @@
           <Property Name="Titles" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Mesages" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="OrderRecycle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameCategory" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NameProduct" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="140" Nullable="false" />
+          <Property Name="Dates" Type="nvarchar" MaxLength="140" Nullable="false" />
+          <Property Name="TokenId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -44,6 +55,7 @@
           <Property Name="NameProduct" Type="nvarchar" MaxLength="250" />
           <Property Name="UserName" Type="varchar" MaxLength="140" Nullable="false" />
           <Property Name="TokenId" Type="int" Nullable="false" />
+          <Property Name="Dates" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -66,6 +78,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="BotChannel" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Token">
           <Key>
@@ -92,6 +105,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Category">
+              <PropertyRef Name="TokenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderRecy__Token__151B244E">
+          <End Role="Token" Type="Self.Token" Multiplicity="1" />
+          <End Role="OrderRecycle" Type="Self.OrderRecycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Token">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderRecycle">
               <PropertyRef Name="TokenId" />
             </Dependent>
           </ReferentialConstraint>
@@ -159,6 +184,7 @@
         <EntityContainer Name="Хранилище botModelContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderRecycle" EntityType="Self.OrderRecycle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Recycle" EntityType="Self.Recycle" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
@@ -169,6 +195,10 @@
           <AssociationSet Name="FK__Category__TokenI__03F0984C" Association="Self.FK__Category__TokenI__03F0984C">
             <End Role="Token" EntitySet="Token" />
             <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderRecy__Token__151B244E" Association="Self.FK__OrderRecy__Token__151B244E">
+            <End Role="Token" EntitySet="Token" />
+            <End Role="OrderRecycle" EntitySet="OrderRecycle" />
           </AssociationSet>
           <AssociationSet Name="FK__Product__Categor__06CD04F7" Association="Self.FK__Product__Categor__06CD04F7">
             <End Role="Category" EntitySet="Category" />
@@ -216,6 +246,18 @@
           <Property Name="Titles" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Mesages" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
+        <EntityType Name="OrderRecycle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NameProduct" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="140" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dates" Type="String" MaxLength="140" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TokenId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Token" Relationship="Self.FK__OrderRecy__Token__151B244E" FromRole="OrderRecycle" ToRole="Token" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -238,6 +280,7 @@
           <Property Name="NameProduct" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="UserName" Type="String" MaxLength="140" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TokenId" Type="Int32" Nullable="false" />
+          <Property Name="Dates" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Token" Relationship="Self.FK__Recycle__TokenId__09A971A2" FromRole="Recycle" ToRole="Token" />
         </EntityType>
         <EntityType Name="Roles">
@@ -262,6 +305,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="BotChannel" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="Self.FK__TelegramU__UserI__10566F31" FromRole="TelegramUser" ToRole="Users" />
         </EntityType>
         <EntityType Name="Token">
@@ -272,6 +316,7 @@
           <Property Name="token1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserID" Type="Int32" />
           <NavigationProperty Name="Category" Relationship="Self.FK__Category__TokenI__03F0984C" FromRole="Token" ToRole="Category" />
+          <NavigationProperty Name="OrderRecycle" Relationship="Self.FK__OrderRecy__Token__151B244E" FromRole="Token" ToRole="OrderRecycle" />
           <NavigationProperty Name="Recycle" Relationship="Self.FK__Recycle__TokenId__09A971A2" FromRole="Token" ToRole="Recycle" />
           <NavigationProperty Name="Users" Relationship="Self.FK__Token__UserID__01142BA1" FromRole="Token" ToRole="Users" />
         </EntityType>
@@ -308,6 +353,18 @@
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderRecy__Token__151B244E">
+          <End Role="Token" Type="Self.Token" Multiplicity="1" />
+          <End Role="OrderRecycle" Type="Self.OrderRecycle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Token">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderRecycle">
+              <PropertyRef Name="TokenId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -359,9 +416,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="botEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="botEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Category" EntityType="Self.Category" />
           <EntitySet Name="Form" EntityType="Self.Form" />
+          <EntitySet Name="OrderRecycle" EntityType="Self.OrderRecycle" />
           <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="Recycle" EntityType="Self.Recycle" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
@@ -376,6 +434,10 @@
           <AssociationSet Name="FK__Product__Categor__06CD04F7" Association="Self.FK__Product__Categor__06CD04F7">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderRecy__Token__151B244E" Association="Self.FK__OrderRecy__Token__151B244E">
+            <End Role="Token" EntitySet="Token" />
+            <End Role="OrderRecycle" EntitySet="OrderRecycle" />
           </AssociationSet>
           <AssociationSet Name="FK__Recycle__TokenId__09A971A2" Association="Self.FK__Recycle__TokenId__09A971A2">
             <End Role="Token" EntitySet="Token" />
@@ -399,7 +461,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище botModelContainer" CdmEntityContainer="botEntities2">
+        <EntityContainerMapping StorageEntityContainer="Хранилище botModelContainer" CdmEntityContainer="botEntities3">
           <EntitySetMapping Name="Category">
             <EntityTypeMapping TypeName="botModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -417,6 +479,18 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Titles" ColumnName="Titles" />
                 <ScalarProperty Name="Mesages" ColumnName="Mesages" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderRecycle">
+            <EntityTypeMapping TypeName="botModel.OrderRecycle">
+              <MappingFragment StoreEntitySet="OrderRecycle">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameCategory" ColumnName="NameCategory" />
+                <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Dates" ColumnName="Dates" />
+                <ScalarProperty Name="TokenId" ColumnName="TokenId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -441,6 +515,7 @@
                 <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="TokenId" ColumnName="TokenId" />
+                <ScalarProperty Name="Dates" ColumnName="Dates" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -466,6 +541,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="BotChannel" ColumnName="BotChannel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

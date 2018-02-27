@@ -18,6 +18,17 @@
     <Property Name="Titles" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="Mesages" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="OrderRecycle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameCategory" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="NameProduct" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="140" Nullable="false" />
+    <Property Name="Dates" Type="nvarchar" MaxLength="140" Nullable="false" />
+    <Property Name="TokenId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="ProductId" />
@@ -39,6 +50,7 @@
     <Property Name="NameProduct" Type="nvarchar" MaxLength="250" />
     <Property Name="UserName" Type="varchar" MaxLength="140" Nullable="false" />
     <Property Name="TokenId" Type="int" Nullable="false" />
+    <Property Name="Dates" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>
@@ -61,6 +73,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="BotChannel" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="Token">
     <Key>
@@ -87,6 +100,18 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Category">
+        <PropertyRef Name="TokenId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderRecy__Token__151B244E">
+    <End Role="Token" Type="Self.Token" Multiplicity="1" />
+    <End Role="OrderRecycle" Type="Self.OrderRecycle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Token">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderRecycle">
         <PropertyRef Name="TokenId" />
       </Dependent>
     </ReferentialConstraint>
@@ -154,6 +179,7 @@
   <EntityContainer Name="Хранилище botModelContainer">
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderRecycle" EntityType="Self.OrderRecycle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Recycle" EntityType="Self.Recycle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
@@ -164,6 +190,10 @@
     <AssociationSet Name="FK__Category__TokenI__03F0984C" Association="Self.FK__Category__TokenI__03F0984C">
       <End Role="Token" EntitySet="Token" />
       <End Role="Category" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderRecy__Token__151B244E" Association="Self.FK__OrderRecy__Token__151B244E">
+      <End Role="Token" EntitySet="Token" />
+      <End Role="OrderRecycle" EntitySet="OrderRecycle" />
     </AssociationSet>
     <AssociationSet Name="FK__Product__Categor__06CD04F7" Association="Self.FK__Product__Categor__06CD04F7">
       <End Role="Category" EntitySet="Category" />

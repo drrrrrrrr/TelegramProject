@@ -13,10 +13,10 @@ namespace telegramBod.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class botEntities2 : DbContext
+    public partial class botEntities3 : DbContext
     {
-        public botEntities2()
-            : base("name=botEntities2")
+        public botEntities3()
+            : base("name=botEntities3")
         {
         }
     
@@ -27,6 +27,7 @@ namespace telegramBod.Models
     
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Form> Form { get; set; }
+        public virtual DbSet<OrderRecycle> OrderRecycle { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Recycle> Recycle { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }

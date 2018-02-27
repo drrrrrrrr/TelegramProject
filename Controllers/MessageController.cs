@@ -71,7 +71,7 @@ namespace telegramBod.Controllers
             string chat_id = "";
             string token = ReceiveToken(update, id);
             int? u;
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 u = bd.Token.Where(x => x.token1 == token).FirstOrDefault().UserID;
                 chat_id = bd.TelegramUser.Where(x => x.UserId == u).FirstOrDefault().Username;
@@ -131,7 +131,7 @@ namespace telegramBod.Controllers
         string ReceiveToken(Update update, int? id)
         {
             string token;
-            using (botEntities2 bot = new botEntities2())
+            using (botEntities3 bot = new botEntities3())
                 token = bot.Token.Where(x => x.Id == id).First().token1;
             return token;
         }
@@ -269,7 +269,7 @@ namespace telegramBod.Controllers
             List<Category> cat = null;
             List<Product> p = null;
             // SendMessage(update.callback_query.from.id, category , ReceiveToken(update, id));
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 try
                 {
@@ -307,7 +307,7 @@ namespace telegramBod.Controllers
             List<Category> list;
             string token = "";
             int i = 0;
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 list = bd.Category.Where(x => x.Token.Id == id).ToList();
                 token = ReceiveToken(update, id);
@@ -330,7 +330,7 @@ namespace telegramBod.Controllers
             string from = "";
             string token = ReceiveToken(update, id);
             int? u;
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                u = bd.Token.Where(x => x.token1 == token).FirstOrDefault().UserID;
                from = bd.TelegramUser.Where(x => x.UserId == u).FirstOrDefault().Username;
@@ -383,14 +383,14 @@ namespace telegramBod.Controllers
             else
                 this.username = update.callback_query.from.id.ToString();
             TokenIds = (int)id;
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 Count = bd.Recycle.Where(x => x.UserName == username).Where(x => x.TokenId == TokenIds).ToList().Count;
             }
         }
         public void DeleteElement(string category, string product)
         {
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 bd.Recycle.Remove(bd.Recycle.Where(x => x.NameProduct == product).Where(x => x.NameCategory == category).First());
                 bd.SaveChanges();
@@ -402,7 +402,7 @@ namespace telegramBod.Controllers
             List<Recycle> p;
             List<Product> m = new List<Product>();
             string[] ar;
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 p = bd.Recycle.Where(x => x.TokenId == TokenIds).Where(x => x.UserName == username).ToList();
                 ar = new string[p.Count];
@@ -448,7 +448,7 @@ namespace telegramBod.Controllers
         }
         public void AddBuy(string NameCategorys, string NameProducts)
         {
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
 
                 bd.Recycle.Add(new Recycle()
@@ -456,7 +456,7 @@ namespace telegramBod.Controllers
                     NameCategory = NameCategorys,
                     NameProduct = NameProducts,
                     TokenId = TokenIds,
-                    UserName = username
+                    UserName = username, Dates = DateTime.Now.ToString()
                 });
                 bd.SaveChanges();
             }
@@ -467,7 +467,7 @@ namespace telegramBod.Controllers
             List<Recycle> p;
             int count = 0;
             List<Product> m = new List<Product>();
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 p = bd.Recycle.Where(x => x.TokenId == TokenIds).Where(x => x.UserName == username).ToList();
                 for (int i = 0; i < p.Count; i++)

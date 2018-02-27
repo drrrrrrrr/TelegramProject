@@ -20,7 +20,7 @@ namespace telegramBod.Controllers
             // поиск пользователя в бд
             Users user = null;
             string answer = "";
-            using (botEntities2 db = new botEntities2())
+            using (botEntities3 db = new botEntities3())
             {
                 try
                 {
@@ -43,7 +43,7 @@ namespace telegramBod.Controllers
             }
             if (user != null)
             {
-                using (botEntities2 db = new botEntities2())
+                using (botEntities3 db = new botEntities3())
                 {
                     Token t = new Token();
                     t.token1 = update.message.text;
@@ -69,7 +69,7 @@ namespace telegramBod.Controllers
                 try
                 {
                     int count;
-                    using (botEntities2 db = new botEntities2())
+                    using (botEntities3 db = new botEntities3())
                     {
                         count = db.Users.Count() + 1;
                         em += db.Users.Count().ToString() + "@bot.ru";
@@ -83,7 +83,7 @@ namespace telegramBod.Controllers
                         db.Users.Add(user);
                         db.SaveChanges();
                     }
-                    using (botEntities2 db = new botEntities2())
+                    using (botEntities3 db = new botEntities3())
                     {
                         TelegramUser t = new TelegramUser();
                         //  count = db.Users.Where(x => x.Id == count).First().;
@@ -92,7 +92,7 @@ namespace telegramBod.Controllers
                         db.TelegramUser.Add(t);
                         db.SaveChanges();
                     }
-                    using (botEntities2 db = new botEntities2())
+                    using (botEntities3 db = new botEntities3())
                     {
 
 
@@ -137,7 +137,7 @@ namespace telegramBod.Controllers
         }
         bool Checked(Update update)
         {
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 try
                 {
@@ -214,7 +214,7 @@ namespace telegramBod.Controllers
         {
             try
             {
-                using (botEntities2 bd = new botEntities2())
+                using (botEntities3 bd = new botEntities3())
                 {
                     TelegramUser tg = bd.TelegramUser.Where(x => x.Username == update.callback_query.from.id.ToString()).FirstOrDefault();
                     if (tg == null)

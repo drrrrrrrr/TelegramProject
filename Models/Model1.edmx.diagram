@@ -4,18 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c5e71f8a9d394517af49acccdc4054c4" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="botModel.Category" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
+      <Diagram DiagramId="3a8afc3068654dcd913633584d193c74" Name="Diagram1">
+        <EntityTypeShape EntityType="botModel.Category" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="botModel.Form" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="botModel.Product" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="botModel.Recycle" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="botModel.Roles" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="botModel.Sub" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="botModel.TelegramUser" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="botModel.Token" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="botModel.Users" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="botModel.OrderRecycle" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="botModel.Product" Width="1.5" PointX="9.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="botModel.Recycle" Width="1.5" PointX="7.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="botModel.Roles" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="botModel.Sub" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="botModel.TelegramUser" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="botModel.Token" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="botModel.Users" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
         <AssociationConnector Association="botModel.FK__Category__TokenI__03F0984C" ManuallyRouted="false" />
         <AssociationConnector Association="botModel.FK__Product__Categor__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="botModel.FK__OrderRecy__Token__151B244E" ManuallyRouted="false" />
         <AssociationConnector Association="botModel.FK__Recycle__TokenId__09A971A2" ManuallyRouted="false" />
         <AssociationConnector Association="botModel.FK__Users__RoleId__7E37BEF6" ManuallyRouted="false" />
         <AssociationConnector Association="botModel.FK__TelegramU__UserI__10566F31" ManuallyRouted="false" />

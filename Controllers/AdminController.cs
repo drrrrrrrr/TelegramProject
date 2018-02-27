@@ -18,7 +18,7 @@ namespace telegramBod.Controllers
     {
         public ActionResult ShowSubscribers()
         {
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 bool con = false;
                 //если это админ или обычный пользователь
@@ -37,7 +37,7 @@ namespace telegramBod.Controllers
         [HttpPost]
         public ActionResult DeleteEmail(string email)
         {
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 Sub subscrib = bd.Sub.Where(x => x.Email == email).First();
                 bd.Sub.Remove(subscrib);
@@ -48,7 +48,7 @@ namespace telegramBod.Controllers
         }
         public ActionResult ShowForm()
         {
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
 
                 bool con = false;
@@ -84,7 +84,7 @@ namespace telegramBod.Controllers
             if (!con)
                 return RedirectToAction("Index", "Home");
 
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 string u = User.Identity.Name;
                 Users user = bd.Users.Where(x => x.Email == u).First();
@@ -110,7 +110,7 @@ namespace telegramBod.Controllers
         public ActionResult ShowShop(string namep,string namecat)
         {
 
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 string u = User.Identity.Name;
                 Users user = bd.Users.Where(x => x.Email == u).First();
@@ -150,7 +150,7 @@ namespace telegramBod.Controllers
                 if (!con)
                     return RedirectToAction("Index", "Home");
                 List<List<Recycle>> res = new List<List<Recycle>>();
-                using (botEntities2 bd = new botEntities2())
+                using (botEntities3 bd = new botEntities3())
                 {
 
                     string u = User.Identity.Name;
@@ -175,7 +175,7 @@ namespace telegramBod.Controllers
                 if (!con)
                     return RedirectToAction("Index", "Home");
 
-                using (botEntities2 bd = new botEntities2())
+                using (botEntities3 bd = new botEntities3())
                 {
                     string u = User.Identity.Name;
                     Users user = bd.Users.Where(x => x.Email == u).First();
@@ -200,7 +200,7 @@ namespace telegramBod.Controllers
         {
             Users user;
             Token k;
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 string u = User.Identity.Name;
                 user = bd.Users.Where(x => x.Email == u).First();
@@ -244,7 +244,7 @@ namespace telegramBod.Controllers
         [HttpPost]
         public ActionResult ToAll(string title,string text)
         {
-            using (botEntities2 bd = new botEntities2())
+            using (botEntities3 bd = new botEntities3())
             {
                 string u = User.Identity.Name;
                 Users user = bd.Users.Where(x => x.Email == u).First();
@@ -289,7 +289,7 @@ namespace telegramBod.Controllers
                     ie.Count = int.Parse(workSheet.Cells[i, ++j].Value.ToString());
 
 
-                    using (botEntities2 db = new botEntities2())
+                    using (botEntities3 db = new botEntities3())
                     {
                         Users user = db.Users.Where(x => x.Id == userId).First();
                         Token k = db.Token.Where(x => x.UserID == user.Id).FirstOrDefault();

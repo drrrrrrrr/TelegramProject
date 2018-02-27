@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Хранилище botModelContainer" CdmEntityContainer="botEntities2">
+  <EntityContainerMapping StorageEntityContainer="Хранилище botModelContainer" CdmEntityContainer="botEntities3">
     <EntitySetMapping Name="Category">
       <EntityTypeMapping TypeName="botModel.Category">
         <MappingFragment StoreEntitySet="Category">
@@ -18,6 +18,18 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Titles" ColumnName="Titles" />
           <ScalarProperty Name="Mesages" ColumnName="Mesages" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderRecycle">
+      <EntityTypeMapping TypeName="botModel.OrderRecycle">
+        <MappingFragment StoreEntitySet="OrderRecycle">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameCategory" ColumnName="NameCategory" />
+          <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Dates" ColumnName="Dates" />
+          <ScalarProperty Name="TokenId" ColumnName="TokenId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -42,6 +54,7 @@
           <ScalarProperty Name="NameProduct" ColumnName="NameProduct" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="TokenId" ColumnName="TokenId" />
+          <ScalarProperty Name="Dates" ColumnName="Dates" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -67,6 +80,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="BotChannel" ColumnName="BotChannel" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

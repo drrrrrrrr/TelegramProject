@@ -37,7 +37,7 @@ namespace telegramBod.Controllers
                 // поиск пользователя в бд
                 Users user = null;
                 string a;
-                using (botEntities2 db = new botEntities2())
+                using (botEntities3 db = new botEntities3())
                 {
                     user = db.Users.FirstOrDefault(u => u.Email == model.Name && u.Passwords == model.Password);
                     a=user.Roles.Names;
