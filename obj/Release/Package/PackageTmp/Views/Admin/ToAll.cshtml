@@ -2,8 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Main.cshtml";
 }
-
-<div class="content container">
+<div>
     <div class="row">
         <div class="col-md-9 col-md-offset-3">
             <h2 class="page-title">Отправить клиентам в телеграм<small></small></h2>
@@ -13,22 +12,16 @@
         <div class="col-md-8 col-md-offset-2">
             <section class="widget">
                 <header>
-                    <h4><i class="fa fa-file-alt"></i>Рассылка  <small>всем пользователям, пользующихся магазином</small></h4>
+                    <h4><i class="fa fa-file-alt"></i>Рассылка  <small>всем пользователям магазина</small></h4>
                 </header>
                 <div class="body">
                     <form action="/Admin/ToAll" class="form-horizontal" method="post" id="x" novalidate="novalidate" data-validate="parsley">
                         <fieldset>
+                        
                             <div class="control-group">
-                                <label for="title" class="control-label">Title <span class="required">*</span></label>
+                                <label for="description" class="control-label text-center">Текст сообщения</label>
                                 <div class="controls form-group">
-                                    <input type="text" id="title" name="title" class="form-control"
-                                           required="required">
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label for="description" class="control-label">Description</label>
-                                <div class="controls form-group">
-                                    <textarea id="description" rows="3" name="text" class="form-control"></textarea>
+                                    <textarea id="description" rows="5" cols="4" name="text" class="form-control"></textarea>
                                 </div>
                             </div>
                         </fieldset>

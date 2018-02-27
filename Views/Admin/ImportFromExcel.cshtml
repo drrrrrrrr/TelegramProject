@@ -1,7 +1,10 @@
 ﻿@{
     Layout = "~/Views/Shared/_Main.cshtml";
 }
-<div class="content container">
+
+
+
+<div>
     <div class="row">
         <div class="col-md-9 col-md-offset-3">
             <h2 class="page-title">Импорт<small>    из Excel</small></h2>
@@ -11,6 +14,10 @@
         <div class="col-md-10 col-md-offset-2">
             <section class="widget">
                 <div class="body">
+                    <h4>
+                        Пример таблицы можете скачать здесь
+                        <a href="~/Images/example.xlsx" class="btn btn-sm btn-primary" />Скачать</a>
+                    </h4>
                     <form id="fileupload" action="/Admin/ImportFromExcel" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-12">
@@ -22,11 +29,11 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 fileupload-progress fade">
-                                
+
                                 <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
                                     <div class="bar" style="width:0%;"></div>
                                 </div>
-                               
+
                                 <div class="progress-extended">&nbsp;</div>
                             </div>
                         </div>
@@ -37,9 +44,9 @@
                                 <input type="file" name="upload" multiple="">
                             </span>
                             <input type="submit" value="Начать загрузку" class="btn btn-primary btn-sm start">
-                                @*<i class="fa fa-upload"></i>
+                            @*<i class="fa fa-upload"></i>
                                 @*<span>Start upload</span>*@
-                           
+
                             <button type="reset" class="btn btn-inverse btn-sm cancel">
                                 <i class="fa fa-ban"></i>
                                 <span>Cancel upload</span>

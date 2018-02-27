@@ -16,6 +16,55 @@ namespace telegramBod.Controllers
 
     public class AdminController : Controller
     {
+        public ActionResult ShowSubscribers()
+        {
+            using (botEntities2 bd = new botEntities2())
+            {
+                bool con = false;
+                //если это админ или обычный пользователь
+                CustomRoleProvider l = new CustomRoleProvider();
+                con = l.IsUserInRole(User.Identity.Name, "Users");
+                if (!con)
+                {
+                    List<Sub> subcribers = bd.Sub.ToList();
+                    return View(subcribers);
+                }
+
+                else return View("Index", "Home");
+            }
+
+        }
+        [HttpPost]
+        public ActionResult DeleteEmail(string email)
+        {
+            using (botEntities2 bd = new botEntities2())
+            {
+                Sub subscrib = bd.Sub.Where(x => x.Email == email).First();
+                bd.Sub.Remove(subscrib);
+                bd.SaveChanges();
+                return RedirectToAction("ShowSubscribers");
+
+            }
+        }
+        public ActionResult ShowForm()
+        {
+            using (botEntities2 bd = new botEntities2())
+            {
+
+                bool con = false;
+                //если это админ или обычный пользователь
+                CustomRoleProvider l = new CustomRoleProvider();
+                con = l.IsUserInRole(User.Identity.Name, "Admin");
+                if (!con)
+                {
+                    List<Form> mes = bd.Form.ToList();
+                    return View(mes);
+                }
+
+                else return View("Index", "Home");
+            }
+
+        }
         public ActionResult Andex()
         {
             CustomRoleProvider l = new CustomRoleProvider();
@@ -55,6 +104,8 @@ namespace telegramBod.Controllers
             }
             return View(parse);
         }
+        
+    
         [HttpPost]
         public ActionResult ShowShop(string namep,string namecat)
         {
@@ -241,7 +292,8 @@ namespace telegramBod.Controllers
                     using (botEntities2 db = new botEntities2())
                     {
                         Users user = db.Users.Where(x => x.Id == userId).First();
-                        Category c = db.Category.Where(x => x.NameCategory == ie.Category).FirstOrDefault();
+                        Token k = db.Token.Where(x => x.UserID == user.Id).FirstOrDefault();
+                        Category c = db.Category.Where(x => x.NameCategory == ie.Category).Where(x=>x.TokenId==k.Id).FirstOrDefault();
 
                         if (c == null)
                         {
@@ -270,21 +322,21 @@ namespace telegramBod.Controllers
             public string Photo { get; set; }
             public int Count { get; set; }
         }
-        public string Subscribe()
-        {
-           
-            string token;
-            using (botEntities2 bot = new botEntities2())
-                token = bot.Token.Where(x => x.Id == 6).First().token1;
-            SetWebHook(token, 6);
-            return "Установли";
-        }
-        public string Subscribe2()
-            { 
+        //public string Subscribe()
         //{
-        //    SetWebHook();
-            return "ух";
-        }
+           
+        //    string token;
+        //    using (botEntities2 bot = new botEntities2())
+        //        token = bot.Token.Where(x => x.Id == 6).First().token1;
+        //    SetWebHook(token, 6);
+        //    return "Установли";
+        //}
+        //public string Subscribe2()
+        //    { 
+        ////{
+        ////    SetWebHook();
+        //    return "ух";
+        //}
         static string SetWebHook(string token, int i)
         {
 

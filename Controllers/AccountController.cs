@@ -12,7 +12,7 @@ namespace telegramBod.Controllers
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return Redirect("https://http://botshop.azurewebsites.net");
         }
         public ActionResult Login()
         {

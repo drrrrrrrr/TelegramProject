@@ -291,6 +291,8 @@
     <Content Include="Images\its_easy.jpg" />
     <Content Include="Images\pattern5.png" />
     <Content Include="Images\phone.png" />
+    <Content Include="Images\phone2.jpg" />
+    <Content Include="Images\phone3.png" />
     <Content Include="Images\playstore.png" />
     <Content Include="Images\prettyPhoto\dark_rounded\btnNext.png" />
     <Content Include="Images\prettyPhoto\dark_rounded\btnPrevious.png" />
@@ -460,6 +462,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Images\example.xlsx" />
     <None Include="Properties\PublishProfiles\BotShop - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -494,6 +497,8 @@
     <Content Include="Views\Admin\ToAll.cshtml" />
     <Content Include="Views\Admin\ImportSucess.cshtml" />
     <Content Include="Views\Admin\ToAllSuccess.cshtml" />
+    <Content Include="Views\Admin\ShowSubscribers.cshtml" />
+    <Content Include="Views\Admin\ShowForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

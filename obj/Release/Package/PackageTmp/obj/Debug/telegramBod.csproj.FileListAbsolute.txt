@@ -57,7 +57,6 @@ C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\ru\System.Web.WebPage
 C:\Users\Дима\source\repos\telegramBod\telegramBod\obj\Debug\telegramBod.csproj.CoreCompileInputs.cache
 C:\Users\Дима\source\repos\telegramBod\telegramBod\obj\Debug\telegramBod.dll
 C:\Users\Дима\source\repos\telegramBod\telegramBod\obj\Debug\telegramBod.pdb
-C:\Users\Дима\source\repos\telegramBod\telegramBod\obj\Debug\telegramBod.csprojResolveAssemblyReference.cache
 C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\OfficeOpenXml.Core.ExcelPackage.dll
 C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.IO.FileSystem.Primitives.dll
 C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\System.IO.Packaging.dll
@@ -65,3 +64,4 @@ C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\OfficeOpenXml.Core.Ex
 C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\ru\EntityFramework.SqlServer.resources.dll
 C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\EPPlus.dll
 C:\Users\Дима\source\repos\telegramBod\telegramBod\bin\EPPlus.xml
+C:\Users\Дима\source\repos\telegramBod\telegramBod\obj\Debug\telegramBod.csprojResolveAssemblyReference.cache
