@@ -16,6 +16,7 @@ namespace telegramBod.Controllers
         private string Register(Update update)
         {
            
+
             // поиск пользователя в бд
             Users user = null;
             string answer = "";
@@ -27,8 +28,12 @@ namespace telegramBod.Controllers
                     if (tok != null)
                         return "Такой токен уже есть в нашей системе";
                     TelegramUser u = db.TelegramUser.Where(x => x.Username == update.message.from.id.ToString()).First();
-                    if(u!=null)
-                     user = db.Users.FirstOrDefault(x => x.Id == u.UserId);
+                    if (u != null)
+                    {
+                        user = db.Users.FirstOrDefault(x => x.Id == u.UserId);
+                        return "У вас уже есть магазин";
+                       
+                    }
                 }
                 catch
                 {
@@ -97,8 +102,8 @@ namespace telegramBod.Controllers
                         db.Token.Add(k);
                         db.SaveChanges();
                     }
-                    return "Регистрация прошла успешно" + Environment.NewLine + "  Ваш логин:" + " " + em + "Ваш пароль " + pas + Environment.NewLine
-                     + "Используйте эти данные для входа в систему" + @"http://botshop.azurewebsites.net/Account/Login";
+                    return "Регистрация прошла успешно" + Environment.NewLine + "  Ваш логин:" + " " + em + " Ваш пароль " + pas + Environment.NewLine
+                     + " Используйте эти данные для входа в систему " + @"http://botshop.azurewebsites.net/Account/Login";
 
                 }
                 catch
@@ -130,6 +135,23 @@ namespace telegramBod.Controllers
 
             return Ok();
         }
+        bool Checked(Update update)
+        {
+            using (botEntities2 bd = new botEntities2())
+            {
+                try
+                {
+                    TelegramUser tg = bd.TelegramUser.Where(x => x.Username == update.callback_query.from.id.ToString()).First();
+                    if (tg != null)
+                        return false;
+                }
+                catch 
+                {
+                    return true;
+                }
+                return true;
+            }
+        }
         void AnswerIsQuery(Update update)
         {
             string reply_markup = "";
@@ -139,8 +161,32 @@ namespace telegramBod.Controllers
             {
       
                 case "reg":
-                    answer = "Введите токен";
-                   // MainMenu(update, id, out reply_markup);
+
+                    bool k = Checked(update);
+                    if (!k)
+                    {
+                        answer = "У вас уже есть магазин";
+                        MainMenu(update, out reply_markup);
+                       
+                    }
+                    else
+                    {
+                        answer+= "Здравствуй! Ты уже совсем близок к созданию своего Telegram-магазина!" +
+                       Environment.NewLine +
+                                         "Следуй инструкциям и достигнешь цели! " +
+                                          Environment.NewLine +
+                                           "1 .Перейди в @BotFather и напиши /newbot " +
+                                            Environment.NewLine +
+                                           " 2.Придумай название для своего магазина " +
+                                            Environment.NewLine +
+                                           " Например: FruitShop_Bot или FruitShopBot " +
+                                            Environment.NewLine +
+                                           " 3.Появившийся токен скопируй и отправь нашему боту,после нажатия Добавить Магазин"+ Environment.NewLine;
+                        answer +=Environment.NewLine + Environment.NewLine+ "Введите токен";
+                        MainMenu(update, out reply_markup);
+                    }
+
+                   // MainMenu(update, out reply_markup);
                     break;
                 case "voc":
                     answer = RecivePassword(update);
@@ -157,7 +203,7 @@ namespace telegramBod.Controllers
                                             Environment.NewLine +
                                            " Например: FruitShop_Bot или FruitShopBot " +
                                             Environment.NewLine +
-                                           " 3.Появившийся токен скопируй и отправь нашему боту ";
+                                           " 3.Появившийся токен скопируй и отправь нашему боту,после нажатия Добавить Магазин";
                     MainMenu(update, out reply_markup);
                     break;
             }
@@ -218,8 +264,9 @@ namespace telegramBod.Controllers
             if(update.message.text.Length==45)
             {
                 string k = Register(update);
-                SendMessage(update.message.chat.id , k ,reply_markup);
-                return;
+
+                SendMessage(update.message.chat.id, k, reply_markup);
+         
             }
             switch (message.ToLower())
             {
@@ -239,7 +286,7 @@ namespace telegramBod.Controllers
                     break;
 
                 default:
-                    answer = "Выберете пункт из меню";
+                    answer = "Выберете пункт из меню.Полученные данные не токен";
                     MainMenu(update, out reply_markup);
                     break;
             }
