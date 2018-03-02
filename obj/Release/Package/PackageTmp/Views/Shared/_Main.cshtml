@@ -32,10 +32,13 @@
             <li class="panel">
                 <a href="/Admin/ShowRecycle"><i class="fa fa-asterisk"></i> <span class="name">Корзина</span></a>
             <li class="panel">
+            <li class="panel">
+                <a href="/Admin/ShowOrder"><i class="fa fa-asterisk"></i> <span class="name">Заказы</span></a>
+            <li class="panel">
                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#side-nav" href="index.html#stats-collapse"><i class="fa fa fa-table"></i> <span class="name">Импорт</span></a>
                 <ul id="stats-collapse" class="panel-collapse collapse">
                     <li><a href="/Admin/ImportFromExcel">Через Excel</a></li>
-                    <li><a href="/Admin/ImportFromExcel">Через сайт</a></li>
+                    <li><a href="/Admin/AddElement">Через сайт</a></li>
                 </ul>
             </li>
             <li class="panel">
@@ -135,18 +138,13 @@
             <a href="login.html"><i class="fa fa-sign-out"></i> <span class="name">Sign Out</span></a>
         </li>
         </ul>
-        <div id="sidebar-settings" class="settings">
-            <button type="button"
-                    data-value="icons"
-                    class="btn-icons btn btn-transparent btn-sm">
-                Icons
-            </button>
+        @*<div id="sidebar-settings" class="settings">
             <button type="button"
                     data-value="auto"
                     class="btn-auto btn btn-transparent btn-sm">
                 Auto
             </button>
-        </div>
+        </div>*@
     </nav>
 
     <style>

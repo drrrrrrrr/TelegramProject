@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "AddElement";
+}
+
+
+@{
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+<div>
+    <div class="row">
+        <div class="col-md-9 col-md-offset-3">
+            <h2 class="page-title">Добавление товара <small>через сайт</small></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <section class="widget">
+                <header>
+                    <h4><i class="fa fa-file-alt"></i>Добавление товара <small>в магазин</small></h4>
+                </header>
+                <div class="body">
+                    <form action="/Admin/AddElement" class="form-horizontal" enctype="multipart/form-data" method="post" novalidate="novalidate" data-validate="parsley">
+                        <fieldset>
+
+                            <div class="control-group">
+                                <label for="title" class="control-label">Категория <span class="required">*</span></label>
+                                <div class="controls form-group">
+                                    <input type="text" id="title" name="category" class="form-control"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="title" class="control-label">Название продукта <span class="required">*</span></label>
+                                <div class="controls form-group">
+                                    <input type="text" id="title" name="nameproduct" class="form-control"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="title" class="control-label">Описание<span class="required">*</span></label>
+                                <div class="controls form-group">
+                                    <input type="text" id="title" name="description" class="form-control"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="title" class="control-label">Цена <span class="required">*</span></label>
+                                <div class="controls form-group">
+                                    <input type="text" id="title" name="price" class="form-control"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="title" class="control-label">Количество<span class="required">*</span></label>
+                                <div class="controls form-group">
+                                    <input type="text" id="title" name="count" class="form-control"
+                                           required="required">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="title" class="control-label">Количество<span class="required">*</span></label>
+                                <div class="controls form-group">
+                                    <input type="file" id="title" name="upload" class="form-control"
+                                           required="required">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <h3>Успешно добавлен!</h3>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success">Отправить</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+

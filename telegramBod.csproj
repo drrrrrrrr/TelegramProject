@@ -502,6 +502,15 @@
     <Content Include="Views\Admin\ToAllSuccess.cshtml" />
     <Content Include="Views\Admin\ShowSubscribers.cshtml" />
     <Content Include="Views\Admin\ShowForm.cshtml" />
+    <Content Include="Views\Admin\ShowOrder.cshtml" />
+    <Content Include="Views\Admin\AShowShops.cshtml" />
+    <Content Include="Views\Admin\SendToAllUsers.cshtml" />
+    <Content Include="Views\Admin\SendToAllUsers2.cshtml" />
+    <Content Include="Views\Shared\_MainAdmin.cshtml" />
+    <Content Include="Views\Account\LoginWrong.cshtml" />
+    <Content Include="Views\Admin\AddElement.cshtml" />
+    <Content Include="Views\Admin\AddElementS.cshtml" />
+    <Content Include="Views\Admin\AddElementF.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

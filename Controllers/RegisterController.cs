@@ -17,7 +17,7 @@ namespace telegramBod.Controllers
         {
            
 
-            // поиск пользователя в бд
+            // поиск пользователя в бдhttp://botshop.azurewebsites.net/Account/Login
             Users user = null;
             string answer = "";
             using (botEntities3 db = new botEntities3())
@@ -27,7 +27,7 @@ namespace telegramBod.Controllers
                     Token tok = db.Token.Where(x => x.token1 == update.message.text).FirstOrDefault();
                     if (tok != null)
                         return "Такой токен уже есть в нашей системе";
-                    TelegramUser u = db.TelegramUser.Where(x => x.Username == update.message.from.id.ToString()).First();
+                    TelegramUser u = db.TelegramUser.Where(x => x.Username == update.message.from.id.ToString()).FirstOrDefault();
                     if (u != null)
                     {
                         user = db.Users.FirstOrDefault(x => x.Id == u.UserId);
@@ -50,6 +50,8 @@ namespace telegramBod.Controllers
                     t.UserID = user.Id;
                     db.Token.Add(t);
                     db.SaveChanges();
+             
+                   
                 }
                 answer += "Магазин успешно добавлен";
                 return answer;
@@ -71,7 +73,7 @@ namespace telegramBod.Controllers
                     int count;
                     using (botEntities3 db = new botEntities3())
                     {
-                        count = db.Users.Count() + 1;
+                        count = db.Users.Count() + 10;
                         em += db.Users.Count().ToString() + "@bot.ru";
                         user = new Users()
                         {
@@ -89,6 +91,7 @@ namespace telegramBod.Controllers
                         //  count = db.Users.Where(x => x.Id == count).First().;
                         t.UserId = count;
                         t.Username = update.message.from.id.ToString();
+                        t.BotChannel = getBotInfo(update.message.text);
                         db.TelegramUser.Add(t);
                         db.SaveChanges();
                     }
@@ -113,7 +116,7 @@ namespace telegramBod.Controllers
                 //   answer = "Вы успешно зарегистрировались" + " " + "Ваш логин " + em;
             }
             }
-        
+     
         public OkResult Update([FromBody]Update update)
         {
                 if (update.message != null)
@@ -264,8 +267,10 @@ namespace telegramBod.Controllers
             if(update.message.text.Length==45)
             {
                 string k = Register(update);
-
                 SendMessage(update.message.chat.id, k, reply_markup);
+                MainMenu(update, out reply_markup);
+                return;
+               
          
             }
             switch (message.ToLower())
@@ -294,7 +299,6 @@ namespace telegramBod.Controllers
                 SendMessage(update.message.chat.id, answer, reply_markup);
 
         }
-
         static void SendMessage(long chat_id, string message,string reply_markup)
         {
             string token = "523345948:AAFptjJ0J17eBQynKKmNPp9Jbhvb3y8UA8A";
@@ -327,5 +331,31 @@ namespace telegramBod.Controllers
             using (WebClient client = new WebClient())
                 client.UploadValues(adress, nvc);
         }
+        string getBotInfo(string token)
+        {
+            string BaseUrl = "https://api.telegram.org/bot" + token + "/getMe";
+            string info = "";
+            using (WebClient cl = new WebClient())
+            {
+                info = cl.DownloadString(BaseUrl);
+            }
+
+            BotName k = JsonConvert.DeserializeObject<BotName>(info);
+            return k.result.username;
+        }
+        class BotName
+        {
+            public Result result { get; set; }
+
+            public bool ok { get; set; }
+        }
+        class Result
+        {
+            public string id { get; set; }
+            public string first_name { get; set; }
+            public string username { get; set; }
+            public bool is_bot { get; set; }
+        }
+
     }
 }

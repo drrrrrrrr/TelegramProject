@@ -85,6 +85,24 @@ namespace telegramBod.Controllers
             nvc.Add("text", message);
             using (WebClient client = new WebClient())
                 client.UploadValues(address, nvc);
+            using (botEntities3 bd = new botEntities3())
+            {
+                List<Recycle> res = bd.Recycle.Where(x => x.Token.token1 == token).Where(x => x.UserName == update.message.contact.user_id.ToString()).ToList();
+                for (int i = 0; i < res.Count; i++)
+                {
+                    OrderRecycle ord = new OrderRecycle()
+                    {
+                        Dates = DateTime.Now.ToString(),
+                        TokenId = bd.Token.Where(x => x.token1 == token).FirstOrDefault().Id,
+                        UserName = update.message.contact.user_id.ToString(),
+                        Token = bd.Token.Where(x => x.token1 == token).FirstOrDefault(),
+                        NameCategory=res[i].NameCategory,
+                        NameProduct=res[i].NameProduct
+                    };
+                    bd.OrderRecycle.Add(ord);
+                    bd.SaveChanges();
+                }
+            }
         }
         string Text(Update up)
         {
@@ -488,11 +506,11 @@ namespace telegramBod.Controllers
            // return m.Count().ToString();
             foreach (Product v in m)
             {
-                answer += v.ProductName + "  " + v.ProductPrice;
+                answer += v.ProductName + "  " + v.ProductPrice + " руб";
                 answer += Environment.NewLine;
                 count += v.ProductPrice;
             }
-            answer += "Итого  " + count.ToString();
+            answer += "Итого  " + count.ToString() +" руб";
             return answer;
         }
     }

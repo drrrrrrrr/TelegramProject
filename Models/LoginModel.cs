@@ -58,4 +58,16 @@ namespace telegramBod.Models
             p = new List<Product>();
         }
     }
+    public class ShopsModel
+    {
+        public string nameShop;
+        public string nameUser;
+        public List<Product> product;
+        public ShopsModel(string nameShp,string name, List<Product> prod)
+        {
+            product = prod;
+            nameUser = name;
+            nameShop = nameShp;
+        }
+    }
 }

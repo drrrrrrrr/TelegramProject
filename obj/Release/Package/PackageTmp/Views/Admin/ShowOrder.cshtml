@@ -1,10 +1,11 @@
-﻿@model List<List<telegramBod.Models.Recycle>>
+﻿
+@model List<List<telegramBod.Models.OrderRecycle>>
 
 @{
     Layout = "~/Views/Shared/_Main.cshtml";
 }
 <div class="row">
-     <div class="row">
+    <div class="row">
         <div class="col-md-9 col-md-offset-3">
             <h2 class="page-title">Корзина<small></small></h2>
         </div>
@@ -39,34 +40,34 @@
                             for (int j = 0; j < Model[i].Count(); j++)
                             {
                                 { k++; }
-                        <tr>
-                            <td class="hidden-xs-portrait">@k</td>
+                                <tr>
+                                    <td class="hidden-xs-portrait">@k</td>
 
-                            <td>
-                                @Model[i][j].NameCategory
-                            </td>
-                            <td>
-                            @Model[i][j].NameProduct
-                            </td>
-                            <td class="hidden-xs-portrait">
-                                <p>
-                                    <small>
-                                        <strong>@Model[i][j].UserName</strong>
-                                    </small>
+                                    <td>
+                                        @Model[i][j].NameCategory
+                                    </td>
+                                    <td>
+                                        @Model[i][j].NameProduct
+                                    </td>
+                                    <td class="hidden-xs-portrait">
+                                        <p>
+                                            <small>
+                                                <strong>@Model[i][j].UserName</strong>
+                                            </small>
 
-                                    <small>
-                                        <strong>@Model[i][j].Dates</strong>
-                                    </small>
-                                </p>
+                                            <small>
+                                                <strong>@Model[i][j].Dates</strong>
+                                            </small>
+                                        </p>
 
-                            </td>
-                            <td>
-                                <form action="/Admin/DeleteFromRecycle?namep=@Model[i][j].NameProduct&namecat=@Model[i][j].NameCategory&username=@Model[i][j].UserName" method="post">
-                                    <input value="Удалить" class="btn btn-sm btn-primary" type="submit" />
-                                </form>
-                            </td>
+                                    </td>
+                                    <td>
+                                        <form action="/Admin/DeleteFromOrderRecycle?namep=@Model[i][j].NameProduct&namecat=@Model[i][j].NameCategory&username=@Model[i][j].UserName" method="post">
+                                            <input value="Удалить" class="btn btn-sm btn-primary" type="submit" />
+                                        </form>
+                                    </td>
 
-                        </tr>
+                                </tr>
 
                             }
                         }

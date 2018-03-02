@@ -12,26 +12,34 @@ namespace telegramBod.Controllers
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
-            return Redirect("https://http://botshop.azurewebsites.net");
+            return Redirect("http://botshop.azurewebsites.net");
         }
         public ActionResult Login()
         {
             return View();
         }
        
+       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                CustomRoleProvider l = new CustomRoleProvider();
-                bool con = l.IsUserInRole(User.Identity.Name, "User");
-                if (con)
-                    return RedirectToAction("ShowShop", "Admin");
-                else return RedirectToAction("Andex", "Admin"); 
-            }
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    CustomRoleProvider l = new CustomRoleProvider();
+            //    bool con = l.IsUserInRole(User.Identity.Name, "User");
+            //    bool con2 = l.IsUserInRole(User.Identity.Name, "Admin");
+            //    if (con)
+            //    {
+            //        return RedirectToAction("ShowShop", "Admin");
+            //    }
+            //    else
+            //    {
+            //        if (con2)
+            //            return RedirectToAction("AShowShops", "Admin");
+            //    }
+            //}
             if (ModelState.IsValid)
             {
                 // поиск пользователя в бд
@@ -40,7 +48,9 @@ namespace telegramBod.Controllers
                 using (botEntities3 db = new botEntities3())
                 {
                     user = db.Users.FirstOrDefault(u => u.Email == model.Name && u.Passwords == model.Password);
-                    a=user.Roles.Names;
+                    if(user==null)
+                        return View("LoginWrong", model);
+                    a =user.Roles.Names;
                 }
                 if (user != null)
                 {
@@ -52,16 +62,17 @@ namespace telegramBod.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Andex", "Admin");
+                        if(a=="Admin")
+                        return RedirectToAction("AShowShops", "Admin");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");
+                    return View("LoginWrong", model);
                 }
             }
 
-            return View(model);
+            return View("LoginWrong",model);
         }
         public ActionResult Register()
         {

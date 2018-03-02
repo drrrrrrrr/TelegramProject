@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>CreateBotShop</title>
@@ -12,37 +11,30 @@
 </head>
 <body class="background-dark">
     <style>
-        .logo
-        {
-            margin-left:0px;
+        .logo {
+            margin-left: 0px;
         }
     </style>
     <div class="logo">
         <div class="container">
             <div class="row">
-                <h3 class="col-md-2"><a href="/Admin/ShowShop">Bot<strong>Shop</strong></a></h3>
+                <h3 class="col-md-2"><a href="/Admin/ShowSubscribers">Bot<strong>Shop</strong></a></h3>
             </div>
         </div>
     </div>
     <nav id="sidebar" class="sidebar nav-collapse collapse">
         <ul id="side-nav" class="side-nav">
             <li class="active">
-                <a href="/Admin/ShowShop"><i class="fa fa-home"></i> <span class="name">Магазин</span></a>
+                <a href="/Admin/AShowShops"><i class="fa fa-home"></i> <span class="name">Магазины</span></a>
             </li>
             <li class="panel">
-                <a href="/Admin/ShowRecycle"><i class="fa fa-asterisk"></i> <span class="name">Корзина</span></a>
-            <li class="panel">
-            <li class="panel">
-                <a href="/Admin/ShowOrder"><i class="fa fa-asterisk"></i> <span class="name">Заказы</span></a>
-            <li class="panel">
-                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#side-nav" href="index.html#stats-collapse"><i class="fa fa fa-table"></i> <span class="name">Импорт</span></a>
-                <ul id="stats-collapse" class="panel-collapse collapse">
-                    <li><a href="/Admin/ImportFromExcel">Через Excel</a></li>
-                    <li><a href="/Admin/AddElement">Через сайт</a></li>
-                </ul>
+                <a href="/Admin/SendToAllUsers"><i class="fa fa-asterisk"></i> <span class="name">Рассылка</span></a>
             </li>
             <li class="panel">
-                <a href="/Admin/ToAll"><i class="fa fa-bookmark-o"></i> <span class="name">Рассылка</span></a>
+                <a href="/Admin/ShowSubscribers"><i class="fa fa-asterisk"></i> <span class="name">Подписчики</span></a>
+            </li>
+            <li class="panel">
+                <a href="/Admin/ShowForm"><i class="fa fa-bookmark-o"></i> <span class="name">Почта</span></a>
             </li>
             <li class="panel">
                 <a href="http://botshop.azurewebsites.net/" target="_parent"><i class="fa fa-sign-out"> </i> <span class="name">Выход</span></a>
@@ -139,6 +131,7 @@
         </li>
         </ul>
         @*<div id="sidebar-settings" class="settings">
+          
             <button type="button"
                     data-value="auto"
                     class="btn-auto btn btn-transparent btn-sm">
@@ -148,8 +141,7 @@
     </nav>
 
     <style>
-        .l 
-        {
+        .l {
             margin-top: 100px;
         }
     </style>
